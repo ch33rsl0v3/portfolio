@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<!--
+  ch33rsl0v3 / portfolio · 404 page
+  ----------------------------------------------------------------------
+  When a visitor hits a URL that doesn't exist on the site, GitHub Pages
+  automatically serves this file. Resident Evil tribute: big red
+  "YOU ARE DEAD" with a return-home button.
+
+  Keep this file in the repo ROOT (next to index.html). GitHub Pages
+  picks it up automatically — no config needed.
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>404 · YOU ARE DEAD</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<meta name="robots" content="noindex">
+
+<!-- Same fonts as the main site, so the 404 feels like part of the same world -->
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Tektur:wght@400;500;700;900&family=VT323&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg:        #0a0612;
+  --bg-2:      #16092c;
+  --ink:       #e8dcf2;
+  --ink-dim:   #a899ba;
+  --ink-mute:  #6b5a82;
+  --eva-purple:#a26cff;
+  --eva-green: #9cff00;
+  --eva-red:   #ff1f1f;
+  --eva-red-dim: #b81212;
+  --border:    #2d1f4a;
+  --font-display: 'Tektur', system-ui, sans-serif;
+  --font-mono:    'JetBrains Mono', 'Courier New', monospace;
+  --font-pixel:   'VT323', monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-mono);
+  min-height: 100vh;
+  overflow-x: hidden;
+  cursor: default;
+}
+
+/* ============================================================================
+   Background pattern — same as main site, anchored to viewport so it doesn't
+   shift on mobile address-bar resize.
+   ============================================================================ */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url('images/bg.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  opacity: 0.25;
+  z-index: -2;
+  pointer-events: none;
+  filter: saturate(0.7) contrast(1.1) hue-rotate(-15deg);
+}
+
+/* CRT scanlines + heavy red vignette to hammer the "you died" mood */
+body::after {
+  content: '';
+  position: fixed; inset: 0;
+  background:
+    radial-gradient(ellipse at center, transparent 30%, rgba(255, 31, 31, 0.18) 70%, rgba(0, 0, 0, 0.85) 100%),
+    repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.15) 0px, rgba(0, 0, 0, 0.15) 1px, transparent 1px, transparent 3px);
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* ============================================================================
+   Layout
+   ============================================================================ */
+main {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1.5rem;
+  text-align: center;
+  gap: 2.5rem;
+}
+
+.code {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--ink-mute);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+}
+.code .blink {
+  display: inline-block;
+  width: 8px; height: 12px;
+  background: var(--eva-red);
+  margin-left: 4px;
+  vertical-align: middle;
+  animation: blink 1s steps(2) infinite;
+}
+@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+/* ============================================================================
+   The big "YOU ARE DEAD" headline — Resident Evil tribute.
+   Three layers of text-shadow give it that bloody, warped, lit-from-inside
+   look that the original game's death screen has.
+   ============================================================================ */
+.dead {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(64px, 14vw, 200px);
+  line-height: 0.9;
+  letter-spacing: 0.04em;
+  color: var(--eva-red);
+  text-transform: uppercase;
+  text-shadow:
+    0 0 1px #fff,
+    0 0 8px var(--eva-red),
+    0 0 24px var(--eva-red),
+    0 4px 0 var(--eva-red-dim),
+    0 0 80px rgba(255, 31, 31, 0.6);
+  /* subtle breathing flicker, like a damaged neon sign */
+  animation: deadFlicker 4s infinite;
+}
+@keyframes deadFlicker {
+  0%, 92%, 100% { opacity: 1; }
+  93% { opacity: 0.4; }
+  94% { opacity: 1; }
+  96% { opacity: 0.7; }
+  97% { opacity: 1; }
+}
+.dead .line { display: block; }
+
+/* ============================================================================
+   Sub-message and console-style metadata
+   ============================================================================ */
+.sub {
+  max-width: 560px;
+  color: var(--ink-dim);
+  font-size: 14px;
+  line-height: 1.7;
+}
+.sub p + p { margin-top: 0.75rem; }
+.sub .key { color: var(--eva-purple); }
+
+.meta-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 0.5rem 2rem;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  max-width: 600px;
+  width: 100%;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 0.85rem 1rem;
+}
+.meta-grid .row { display: flex; justify-content: space-between; gap: 0.75rem; }
+.meta-grid .row b { color: var(--ink); font-weight: 500; }
+
+/* ============================================================================
+   Continue button — same shape as the main-site .btn, but red, Resident Evil
+   "CONTINUE / EXIT?" prompt feel.
+   ============================================================================ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink);
+  background: transparent;
+  border: 1px solid var(--eva-red);
+  padding: 0.85rem 1.75rem;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  position: relative;
+}
+.btn::before {
+  content: '►';
+  color: var(--eva-red);
+  font-size: 10px;
+  transition: transform 0.2s;
+}
+.btn:hover {
+  background: var(--eva-red);
+  color: var(--bg);
+  text-decoration: none;
+}
+.btn:hover::before {
+  color: var(--bg);
+  transform: translateX(2px);
+}
+
+/* ============================================================================
+   Mobile fine-tune
+   ============================================================================ */
+@media (max-width: 480px) {
+  main { gap: 2rem; }
+  .meta-grid { grid-template-columns: 1fr; gap: 0.4rem; padding: 0.75rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .dead, .blink { animation: none !important; }
+}
+</style>
+</head>
+<body>
+
+<main>
+
+  <div class="code">// system error · code 404 · session lost<span class="blink"></span></div>
+
+  <h1 class="dead" aria-label="You are dead">
+    <span class="line">YOU ARE</span>
+    <span class="line">DEAD</span>
+  </h1>
+
+  <div class="sub">
+    <p>The page you tried to load doesn't exist on this server.</p>
+    <p style="color: var(--ink-mute); font-size: 12px;">Possibly: an old URL, a typo, or a save file that was never written.</p>
+  </div>
+
+  <div class="meta-grid" aria-hidden="true">
+    <div class="row"><span>status</span><b style="color: var(--eva-red);">DEAD</b></div>
+    <div class="row"><span>cause</span><b>404 NOT FOUND</b></div>
+    <div class="row"><span>respawn</span><b>available</b></div>
+  </div>
+
+  <a href="/portfolio/" class="btn">Continue · Return home</a>
+
+</main>
+
+<script>
+/* ============================================================================
+   Tiny touch: pressing any key acts like the Resident Evil "press to continue"
+   prompt and sends the visitor back to the home page.
+   ============================================================================ */
+document.addEventListener('keydown', (e) => {
+  // ignore modifier-only presses
+  if (e.key === 'Shift' || e.key === 'Control' || e.key === 'Alt' || e.key === 'Meta') return;
+  window.location.href = '/portfolio/';
+});
+</script>
+
+</body>
+</html>
