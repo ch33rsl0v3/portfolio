@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--
 ================================================================================
-  ch33rsl0v3 / portfolio  ·  v0.5
+  ch33rsl0v3 / portfolio  ·  v0.8
 ================================================================================
 
   EDITING MAP — what lives where in this file:
@@ -74,6 +74,16 @@
    ============================================================================ */
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
+html {
+  /* smooth scroll when clicking anchor links (#projects, #about, etc.) */
+  scroll-behavior: smooth;
+}
+/* respect users who request reduced motion (accessibility setting) */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal { transition: none !important; }
+}
+
 html, body {
   background: var(--bg);
   color: var(--ink);
@@ -84,26 +94,46 @@ html, body {
   cursor: default;
 }
 
+/* when smooth-scrolling to a section, leave room for the sticky top nav (56px) */
+section[id] { scroll-margin-top: 70px; }
+
 a { color: var(--eva-green); text-decoration: none; }
 a:hover { color: var(--ink); text-decoration: underline; text-underline-offset: 4px; }
 
 /* ============================================================================
-   3. BACKGROUND IMAGE
-   To change the background, swap the file at images/bg.jpg.
-   Tweak `opacity` if the pattern is too loud or too faint.
+   3. SECTION BACKGROUND PATTERN
+   ----------------------------------------------------------------------------
+   The background image is now applied per-section via the .bg-pattern class.
+   Add `bg-pattern` to any <section> to give it a tiled background with soft
+   edges. Edit `--bg-image` and opacity below to swap or tune the artwork.
+   ----------------------------------------------------------------------------
+   To use a DIFFERENT image for one specific section, override --bg-image
+   inline, e.g.:  <section class="section bg-pattern" style="--bg-image: url('images/bg2.jpg')">
    ============================================================================ */
-body::before {
+.bg-pattern {
+  position: relative;
+  isolation: isolate;
+  --bg-image: url('images/bg.jpg');
+  --bg-opacity: 0.4;
+  /* how soft the fade between adjacent sections is — bigger = longer fade */
+  --bg-fade: 90px;
+}
+.bg-pattern::before {
   content: '';
-  position: fixed;
+  position: absolute;
   inset: 0;
-  background-image: url('images/bg.jpg');
-  background-size: auto;          /* native size — tile, don't stretch */
-  background-repeat: repeat;
-  background-attachment: fixed;
-  opacity: 0.35;                  /* 0 = invisible, 1 = full strength */
+  background-image: var(--bg-image);
+  background-size: cover;           /* one full image, no horizontal tiling = no seams */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;     /* anchors pattern to viewport so all sections share the same crop seamlessly */
+  opacity: var(--bg-opacity);
   z-index: -1;
   pointer-events: none;
   filter: saturate(0.9) contrast(1.05);
+  /* fade out at the top and bottom edges of each section, creating a calm "breathing" rhythm between blocks */
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, black var(--bg-fade), black calc(100% - var(--bg-fade)), transparent 100%);
+          mask-image: linear-gradient(to bottom, transparent 0, black var(--bg-fade), black calc(100% - var(--bg-fade)), transparent 100%);
 }
 
 /* CRT scanlines + corner vignette overlay */
@@ -159,6 +189,8 @@ nav.top ul.links a {
   padding: 4px 0; border-bottom: 1px solid transparent; transition: all 0.15s;
 }
 nav.top ul.links a:hover { color: var(--eva-purple); border-bottom-color: var(--eva-purple); text-decoration: none; }
+/* the link for the section currently in view gets the same treatment as :hover */
+nav.top ul.links a.active { color: var(--eva-green); border-bottom-color: var(--eva-green); }
 nav.top .meta { display: flex; gap: 1rem; align-items: center; color: var(--ink-mute); font-size: 11px; }
 nav.top .socials { display: flex; gap: 0.85rem; align-items: center; }
 nav.top .socials a { color: var(--ink-dim); display: inline-flex; align-items: center; transition: color 0.15s; }
@@ -397,6 +429,17 @@ nav.top .status-dot {
 .ach-frame img {
   width: 100%; height: 100%; object-fit: cover; display: block;
 }
+/* If an image fails to load, this kicks in via onerror. Keeps the layout stable. */
+.ach-frame img.broken { display: none; }
+.ach-frame img.broken + .ach-fallback,
+.ach-frame .ach-fallback {
+  display: flex;
+  align-items: center; justify-content: center;
+  width: 100%; height: 100%;
+  font-family: var(--font-mono); font-size: 10px; color: var(--ink-mute);
+  letter-spacing: 0.2em; text-transform: uppercase; text-align: center;
+  padding: 1rem;
+}
 .ach-frame .placeholder {
   font-family: var(--font-mono); font-size: 10px; color: var(--ink-mute);
   letter-spacing: 0.2em; text-transform: uppercase; text-align: center;
@@ -567,6 +610,8 @@ body.commentary-on .commentary-banner { display: block; }
     <symbol id="i-telegram" viewBox="0 0 24 24"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z"/></symbol>
     <symbol id="i-github" viewBox="0 0 24 24"><path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2.2c-3.3.7-4-1.6-4-1.6-.5-1.4-1.3-1.8-1.3-1.8-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.7 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3"/></symbol>
     <symbol id="i-artstation" viewBox="0 0 24 24"><path d="M0 17.7l1.6 2.8c.3.6.9 1 1.6 1h13.5l-2.5-3.8H0zM23.2 17.6L13.5 1.4c-.3-.6-.9-1-1.6-1H8.2l13.4 22.4 1.6-2.7c.3-.6.3-1.4 0-2.5zM13.6 14L7.7 3.8 1.7 14h11.9z"/></symbol>
+    <symbol id="i-linkedin" viewBox="0 0 24 24"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.95v5.66H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 0 1-2.06-2.06 2.06 2.06 0 1 1 2.06 2.06zm1.78 13.02H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z"/></symbol>
+    <symbol id="i-steam" viewBox="0 0 24 24"><path d="M12 0C5.4 0 .07 5.06 0 11.36L6.43 14a3.4 3.4 0 0 1 1.9-.59c.06 0 .12 0 .18.01l2.86-4.14v-.06c0-2.5 2.04-4.53 4.55-4.53s4.55 2.03 4.55 4.53c0 2.5-2.04 4.53-4.55 4.53h-.1l-4.08 2.91c0 .05.01.1.01.16 0 1.87-1.53 3.4-3.42 3.4-1.65 0-3.04-1.18-3.35-2.74L.06 13.6C1.55 19.5 6.27 24 12 24c6.63 0 12-5.37 12-12S18.63 0 12 0zM7.55 18.21l-1.47-.6a2.6 2.6 0 0 0 1.34 1.26 2.6 2.6 0 0 0 3.4-1.4 2.55 2.55 0 0 0 .01-1.96 2.55 2.55 0 0 0-1.4-1.4 2.61 2.61 0 0 0-1.96.01l1.52.62a1.92 1.92 0 1 1-1.44 3.47zm11.49-9.0a3.04 3.04 0 0 0-3.04-3.03 3.04 3.04 0 0 0-3.03 3.03 3.04 3.04 0 0 0 3.04 3.04 3.04 3.04 0 0 0 3.04-3.04zm-5.32 0a2.28 2.28 0 0 1 4.55 0 2.28 2.28 0 0 1-4.55 0z"/></symbol>
     <symbol id="i-mail" viewBox="0 0 24 24"><path d="M2 4h20v16H2zM4 6v.5l8 5 8-5V6H4zm0 2.7V18h16V8.7l-8 5-8-5z"/></symbol>
     <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="square"/></symbol>
   </defs>
@@ -595,7 +640,8 @@ body.commentary-on .commentary-banner { display: block; }
       <div class="socials">
         <a href="https://twitter.com/ch33rsl0v3" target="_blank" rel="noopener" aria-label="Twitter"><svg class="icn"><use href="#i-twitter"/></svg></a>
         <a href="https://t.me/ch33rsl0v3" target="_blank" rel="noopener" aria-label="Telegram"><svg class="icn"><use href="#i-telegram"/></svg></a>
-        <a href="https://www.linkedin.com/in/ch33rsl0v3/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg class="icn"><use href="#i-LinkedIn"/></svg></a>
+        <a href="https://www.linkedin.com/in/ch33rsl0v3/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg class="icn"><use href="#i-linkedin"/></svg></a>
+        <a href="https://github.com/Ch33rsL0v3" target="_blank" rel="noopener" aria-label="GitHub"><svg class="icn"><use href="#i-github"/></svg></a>
         <a href="https://www.artstation.com/ch33rsl0v3" target="_blank" rel="noopener" aria-label="ArtStation"><svg class="icn"><use href="#i-artstation"/></svg></a>
         <a href="https://steamcommunity.com/id/ch33rsl0v3/" target="_blank" rel="noopener" aria-label="Steam"><svg class="icn"><use href="#i-steam"/></svg></a>
       </div>
@@ -608,9 +654,9 @@ body.commentary-on .commentary-banner { display: block; }
      HERO — your name, role, and 4 stats
      To edit stats: change the value/label/sub of each .stat block below.
      ============================================================================ -->
-<section class="hero">
+<section class="hero bg-pattern">
   <div class="wrap">
-    <div class="tag">Save data loaded · session 03</div>
+    <div class="tag">Each man sacrifices himself for his ambitions.</div>
     <h1 id="hero-name">
       Mark<br>Redfield
       <span class="alt" aria-hidden="true">Mark<br>Redfield</span>
@@ -648,7 +694,7 @@ body.commentary-on .commentary-banner { display: block; }
            - If you have NO projects to show under a job, delete the entire
              <div class="contract-projects">...</div> block.
      ============================================================================ -->
-<section class="section" id="experience">
+<section class="section bg-pattern" id="experience">
   <div class="wrap">
     <div class="section-head reveal">
       <h2>Experience · Contracts</h2>
@@ -830,7 +876,7 @@ body.commentary-on .commentary-banner { display: block; }
      PERSONAL PROJECTS — solo / hobby work
      To add: copy <article class="card">...</article> inside <div class="grid">.
      ============================================================================ -->
-<section class="section" id="projects">
+<section class="section bg-pattern" id="projects">
   <div class="wrap">
     <div class="section-head reveal">
       <h2>Personal projects</h2>
@@ -887,7 +933,7 @@ body.commentary-on .commentary-banner { display: block; }
      ARTWORKS — horizontal scroll gallery
      To add: copy <article class="art-card">...</article> inside <div class="gallery">.
      ============================================================================ -->
-<section class="section" id="artworks">
+<section class="section bg-pattern" id="artworks">
   <div class="wrap">
     <div class="section-head reveal">
       <h2>Artworks</h2>
@@ -914,9 +960,9 @@ body.commentary-on .commentary-banner { display: block; }
         </article>
         ============================================================ -->
 
-        <article class="art-card" onclick="window.open('https://www.artstation.com/ch33rs', '_blank')">
+        <article class="art-card" onclick="window.open('https://www.artstation.com/ch33rsl0v3', '_blank')">
           <div class="frame"><div class="placeholder">[ ⨯ ]<br/>more on ArtStation<br/>↗</div></div>
-          <div class="info"><h4>See full archive</h4><p>artstation.com/ch33rs</p></div>
+          <div class="info"><h4>See full archive</h4><p>artstation.com/ch33rsl0v3</p></div>
         </article>
 
       </div>
@@ -927,17 +973,15 @@ body.commentary-on .commentary-banner { display: block; }
 <!-- ============================================================================
      ABOUT — your bio, stack, languages, currently playing
      ============================================================================ -->
-<section class="section" id="about">
+<section class="section bg-pattern" id="about">
   <div class="wrap">
     <div class="section-head reveal">
       <h2>About</h2>
-      <span class="meta">yep, that's me</span>
+      <span class="meta">Ch33rs's me, bro. Let me be me</span>
     </div>
     <div class="about-grid reveal">
       <div class="about-text">
-        <p>I design and produce games end-to-end. The fun half is the high-level design &mdash; loops, fantasies, what makes someone come back tomorrow. The other half is making it actually ship: roadmaps, scope cuts, defending the build from creep.</p>
-        <p>I started solo, taught myself <b>C#</b>, <b>Unity</b>, <b>Blender</b>, and finished two games front-to-back so I'd know what I was asking other people to do. Now I do the same thing at scale &mdash; fifteen-plus titles shipped, players in the hundreds of thousands, retention curves I'm proud of.</p>
-        <p>If you want to know what kind of designer I am, look at <i>Roll the Luck</i>'s GDD &mdash; the document is the answer.</p>
+        <p>I've always wanted to make games. I started with programming and learned 3D modeling. But all of that pales in comparison to game design. It's my passion. Just like my piano, electric guitar, or blueberries. I made this website myself. There are about 10 Easter Eggs here, and I'll be adding more as development progresses. And if you want to check out my resume, enjoy →</p>
         <p style="margin-top: 2rem;">
           <a href="https://docs.google.com/document/d/1-vEw6lXgDuWsLMdj-pzI27ahcbYDUmqzJdAtNpdpwYc/edit?usp=sharing" target="_blank" rel="noopener" class="btn primary">Resume <svg class="icn"><use href="#i-arrow"/></svg></a>
         </p>
@@ -983,6 +1027,8 @@ body.commentary-on .commentary-banner { display: block; }
            3. Replace src, title, tag, and description.
            4. The slider auto-paginates if cards overflow the page.
               No JS edits needed — just add or remove cards.
+         If an image is missing, the card stays but shows blank —
+         layout doesn't break.
          If you want NO achievements section at all, delete this
          entire <div class="achievements">...</div> block.
          ============================================================ -->
@@ -1014,45 +1060,67 @@ body.commentary-on .commentary-banner { display: block; }
 
         <article class="ach-card">
           <div class="ach-frame">
-            <div class="placeholder">[ replace with image ]<br/>images/ach01.jpg</div>
+            <img src="images/ach01.jpg" alt="Achievement 1" />
           </div>
           <div class="ach-info">
-            <h5>[ Achievement #1 ]</h5>
-            <div class="ach-tag">Year · Type</div>
-            <p>Replace with what you're proud of — game jam win, milestone, conference talk, feature, anything.</p>
+            <h5>[ Hotline Miami ]</h5>
+            <div class="ach-tag">2019</div>
+            <p>ALL ACHIEVEMENTS</p>
           </div>
         </article>
 
         <article class="ach-card">
           <div class="ach-frame">
-            <div class="placeholder">[ replace with image ]<br/>images/ach02.jpg</div>
+            <img src="images/ach02.jpg" alt="Achievement 2" />
           </div>
           <div class="ach-info">
-            <h5>[ Achievement #2 ]</h5>
-            <div class="ach-tag">Year · Type</div>
-            <p>Each card is image + title + short caption. Keep descriptions tight.</p>
+            <h5>[ Hotline Miami 2 ]</h5>
+            <div class="ach-tag">2021</div>
+            <p>ALL ACHIEVEMENTS</p>
           </div>
         </article>
 
         <article class="ach-card">
           <div class="ach-frame">
-            <div class="placeholder">[ replace with image ]<br/>images/ach03.jpg</div>
+            <img src="images/ach03.jpg" alt="Achievement 3" />
           </div>
           <div class="ach-info">
-            <h5>[ Achievement #3 ]</h5>
-            <div class="ach-tag">Year · Type</div>
-            <p>If you have only one to show, leave one card. Slider behavior adapts automatically.</p>
+            <h5>[ Sekiro: Shadow Die Twice ]</h5>
+            <div class="ach-tag">2020</div>
+            <p>ALL ACHIEVEMENTS</p>
           </div>
         </article>
 
         <article class="ach-card">
           <div class="ach-frame">
-            <div class="placeholder">[ replace with image ]<br/>images/ach04.jpg</div>
+            <img src="images/ach04.jpg" alt="Achievement 4" />
           </div>
           <div class="ach-info">
-            <h5>[ Achievement #4 ]</h5>
-            <div class="ach-tag">Year · Type</div>
-            <p>Add as many as you want. When they overflow, arrows + autoplay turn on.</p>
+            <h5>[ Elden Ring ]</h5>
+            <div class="ach-tag">2025</div>
+            <p>ALL ACHIEVEMENTS</p>
+          </div>
+        </article>
+
+        <article class="ach-card">
+          <div class="ach-frame">
+            <img src="images/ach05.jpg" alt="Achievement 5" />
+          </div>
+          <div class="ach-info">
+            <h5>[ Sifu ]</h5>
+            <div class="ach-tag">2023</div>
+            <p>ALL ACHIEVEMENTS</p>
+          </div>
+        </article>
+
+        <article class="ach-card">
+          <div class="ach-frame">
+            <img src="images/ach06.jpg" alt="Achievement 6" />
+          </div>
+          <div class="ach-info">
+            <h5>[ Cuphead ]</h5>
+            <div class="ach-tag">2022</div>
+            <p>ALL ACHIEVEMENTS</p>
           </div>
         </article>
 
@@ -1065,12 +1133,12 @@ body.commentary-on .commentary-banner { display: block; }
 <!-- ============================================================================
      CONTACT — links and CTA
      ============================================================================ -->
-<section class="section" id="contact">
+<section class="section bg-pattern" id="contact">
   <div class="wrap">
     <div class="contact-row reveal">
       <div>
         <h2>Write me<br>a letter.</h2>
-        <p>Open to junior and middle roles. I also consider all offers.</p>
+        <p>Open to junior and middle roles. I also consider any interesting offers.</p>
         <p style="color: var(--ink-mute); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; margin-top: 2rem;">Press <span style="color: var(--eva-purple);">~</span> to talk to the console.</p>
       </div>
       <ul class="contact-list">
@@ -1090,7 +1158,7 @@ body.commentary-on .commentary-banner { display: block; }
 <footer class="bottom">
   <div class="wrap row">
     <div>© <span class="year" id="year-3303">3303</span> · designed & coded solo</div>
-    <div>v0.5 · build <span style="color: var(--eva-purple);" id="build">000000</span></div>
+    <div>v0.8 · build <span style="color: var(--eva-purple);" id="build">000000</span></div>
   </div>
 </footer>
 
@@ -1139,11 +1207,12 @@ const bootText = [
   'Magi system synchronization ........ OK',
   '',
   '> POST: memory check ............. OK',
-  '> POST: dice integrity ........... OK',
-  '> POST: caffeine levels .......... LOW',
+  '> POST: all safety devices disengaged ........... CHECK',
+  '> POST: internal power supply .......... CHECK',
+  '> POST: umbilical cable connected .......... CHECK',
   '> Loading portfolio.dat ..........',
-  '> Mounting /home/mark ............',
-  '> Welcome back, operator.',
+  '> Mounting eva unit ............',
+  '> Begin the synchronization process, UNIT-02.',
   ''
 ];
 const bootEl = document.getElementById('boot');
@@ -1202,7 +1271,7 @@ yearEl.addEventListener('click', (e) => {
   if (tip) { tip.remove(); tip = null; return; }
   tip = document.createElement('div');
   tip.className = 'tooltip';
-  tip.innerHTML = `<h5>// year 3303</h5>Elite Dangerous timeline runs +1286 years from real-world. The site was built in 2017 of their reckoning. Felt right to leave it.<br><br><span style="color: var(--ink-mute); font-size: 10px;">click anywhere to dismiss</span>`;
+  tip.innerHTML = `<h5>// SUFFERING IS OUR PRAYER!</h5>01100100 01100101 01100001 01110100 01101000 00100000 01100011 01100001 01101110 00100000 01101000 01100001 01110110 01100101 00100000 01101101 01100101 00100000 01110111 01101000 01100101 01101110 00100000 01101001 01110100 00100000 01100101 01100001 01110010 01101110 01110011 00100000 01101101 01100101<br><br><span style="color: var(--ink-mute); font-size: 10px;">click anywhere to dismiss</span>`;
   const r = yearEl.getBoundingClientRect();
   tip.style.left = Math.max(10, r.left - 100) + 'px';
   tip.style.bottom = (window.innerHeight - r.top + 10) + 'px';
@@ -1223,21 +1292,24 @@ function updateClock() {
 setInterval(updateClock, 1000); updateClock();
 document.getElementById('build').textContent = Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0').toUpperCase();
 
-/* ===== F. HUD section tracker ===== */
+/* ===== F. HUD section tracker + active nav link highlight ===== */
 const sections = [
-  { el: document.querySelector('.hero'), name: 'hero' },
-  { el: document.getElementById('experience'), name: 'contracts' },
-  { el: document.getElementById('projects'), name: 'projects' },
-  { el: document.getElementById('artworks'), name: 'artworks' },
-  { el: document.getElementById('about'), name: 'player file' },
-  { el: document.getElementById('contact'), name: 'contact' }
+  { el: document.querySelector('.hero'),                 name: 'hero',       linkHash: null },
+  { el: document.getElementById('experience'),           name: 'contracts',  linkHash: '#experience' },
+  { el: document.getElementById('projects'),             name: 'projects',   linkHash: '#projects' },
+  { el: document.getElementById('artworks'),             name: 'artworks',   linkHash: '#artworks' },
+  { el: document.getElementById('about'),                name: 'player file',linkHash: '#about' },
+  { el: document.getElementById('contact'),              name: 'contact',    linkHash: '#contact' }
 ];
 const hudSection = document.getElementById('hud-section');
+const navLinks = document.querySelectorAll('nav.top ul.links a');
 function updateHud() {
   const y = window.scrollY + 200;
-  let cur = sections[0].name;
-  for (const s of sections) { if (s.el && s.el.offsetTop <= y) cur = s.name; }
-  hudSection.textContent = 'section :: ' + cur;
+  let cur = sections[0];
+  for (const s of sections) { if (s.el && s.el.offsetTop <= y) cur = s; }
+  hudSection.textContent = 'section :: ' + cur.name;
+  // mirror active state into top nav
+  navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === cur.linkHash));
 }
 window.addEventListener('scroll', updateHud, { passive: true });
 updateHud();
@@ -1490,7 +1562,7 @@ document.addEventListener('keydown', (e) => {
     cons.classList.toggle('open');
     if (cons.classList.contains('open')) {
       if (consOut.children.length === 0) {
-        consPrint('nerv-os :: console v0.5');
+        consPrint('nerv-os :: console v0.8');
         consPrint('type <span class="acc">help</span> for the list.');
       }
       setTimeout(() => consIn.focus(), 100);
