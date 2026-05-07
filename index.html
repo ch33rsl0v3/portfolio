@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--
 ================================================================================
-  ch33rsl0v3 / portfolio  ·  v0.9
+  ch33rsl0v3 / portfolio  ·  v1.0
 ================================================================================
 
   EDITING MAP — what lives where in this file:
@@ -30,31 +30,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Mark Redfield — Game Producer & Game Designer. 2+ years shipping live titles end-to-end. 15+ games, team of 9, +14% D1 retention.">
-
-<!-- ============================================================================
-     SOCIAL PREVIEW (Open Graph + Twitter Card)
-     Determines what shows up when the URL is pasted into Telegram, Discord,
-     LinkedIn, Twitter, Slack, etc. Image should be ~1200×630 for best results.
-     If you change the image filename, update both og:image and twitter:image.
-     ============================================================================ -->
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="Mark Redfield · Portfolio">
-<meta property="og:title" content="Mark Redfield · Game Producer & Designer">
-<meta property="og:description" content="2+ years shipping live titles end-to-end. 15+ games, team of 9, +14% D1 retention.">
-<meta property="og:url" content="https://ch33rsl0v3.github.io/portfolio/">
-<meta property="og:image" content="https://ch33rsl0v3.github.io/portfolio/images/og.jpg">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Mark Redfield — Game Producer & Designer portfolio cover">
-<meta property="og:locale" content="en_US">
-
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Mark Redfield · Game Producer & Designer">
-<meta name="twitter:description" content="2+ years shipping live titles end-to-end. 15+ games, team of 9, +14% D1 retention.">
-<meta name="twitter:image" content="https://ch33rsl0v3.github.io/portfolio/images/og.jpg">
-<meta name="twitter:site" content="@ch33rsl0v3">
-<meta name="twitter:creator" content="@ch33rsl0v3">
 <title>Mark Redfield :: ch33rsl0v3</title>
 <link rel="icon" type="image/x-icon" href="favicon.ico">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -108,7 +83,7 @@ html {
   html { scroll-behavior: auto; }
   .reveal { transition: none !important; }
   body.has-cursor, body.has-cursor * { cursor: auto !important; }
-  .cursor-die, .cursor-dot, #trail-canvas { display: none !important; }
+  .cursor-die, #trail-canvas { display: none !important; }
   .magnetic { transition: none !important; transform: none !important; }
 }
 
@@ -514,19 +489,19 @@ nav.top .status-dot {
 .card:hover { border-color: var(--eva-purple); }
 .card .cover { height: 220px; background: linear-gradient(135deg, var(--bg-3) 0%, var(--bg) 100%); border-bottom: 1px solid var(--border); position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; }
 
-/* gameplay video preview — sits on top of ASCII art, fades in on hover */
+/* gameplay video preview — visible by default, fades OUT on hover to reveal ASCII art beneath */
 .card .cover-video {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 0;
+  opacity: 1;
   transition: opacity 0.4s ease;
   pointer-events: none;
   z-index: 1;
 }
-.card:hover .cover-video { opacity: 1; }
+.card:hover .cover-video { opacity: 0; }
 .card .cover-art { font-family: var(--font-mono); font-size: 7px; color: var(--eva-purple); line-height: 1.1; white-space: pre; user-select: none; opacity: 0.7; }
 .card .cover .tag { position: absolute; top: 0.75rem; right: 0.75rem; font-size: 10px; color: var(--ink-mute); letter-spacing: 0.1em; text-transform: uppercase; }
 .card .body { padding: 1.5rem; }
@@ -625,55 +600,59 @@ body.commentary-on .commentary-banner { display: block; }
 
 
 /* ============================================================================
-   17. CUSTOM CURSOR + TRAIL
+   17. CUSTOM CURSOR (SVG DICE) + TRAIL
    ----------------------------------------------------------------------------
-   Cursor is a Unicode die face (⚀). Stays still while idle, cycles through
-   all six faces while hovering interactive elements (matches the spinning
-   die on the RTLNT card). A small green anchor dot marks the click point.
-   Hidden on touch devices and when the user prefers reduced motion.
-   The trail is a canvas overlay that draws fading purple particles.
+   Cursor is an SVG die face drawn from scratch — NOT a Unicode character —
+   so it looks identical on every OS / font. Idle: face 1, purple. On hover
+   over an interactive element: face cycles 1→2→3→4→5→6, color shifts to green,
+   slightly enlarges. Hidden on touch / coarse pointer / reduced-motion.
+   Trail = canvas with fading purple particles along the cursor path.
    ============================================================================ */
 @media (hover: hover) and (pointer: fine) {
   body.has-cursor, body.has-cursor * { cursor: none !important; }
 }
-.cursor-die, .cursor-dot {
+.cursor-die {
   position: fixed; top: 0; left: 0;
+  width: 28px; height: 28px;
+  margin: -14px 0 0 -14px;          /* center the box on the cursor point */
   pointer-events: none;
   z-index: 9999;
   will-change: transform;
   display: none;
-}
-.cursor-die {
-  font-family: var(--font-display);
-  font-size: 28px;
-  line-height: 1;
-  color: var(--eva-purple);
-  text-shadow:
-    0 0 8px rgba(162, 108, 255, 0.55),
-    0 0 2px rgba(162, 108, 255, 0.9);
-  /* center the glyph on the cursor position */
-  margin: -14px 0 0 -14px;
-  transition: color 0.2s, font-size 0.2s, margin 0.2s, text-shadow 0.2s;
   user-select: none;
+  transition: width 0.2s, height 0.2s, margin 0.2s;
 }
-.cursor-dot {
-  width: 3px; height: 3px;
-  margin: -1.5px 0 0 -1.5px;
-  background: var(--eva-green);
-  border-radius: 50%;
-  box-shadow: 0 0 4px var(--eva-green);
+.cursor-die svg {
+  width: 100%; height: 100%;
+  display: block;
+  overflow: visible;                /* let the glow extend past the box */
 }
-body.has-cursor .cursor-die,
-body.has-cursor .cursor-dot { display: block; }
+.cursor-die .die-frame {
+  fill: none;
+  stroke: var(--eva-purple);
+  stroke-width: 1.5;
+  filter: drop-shadow(0 0 4px rgba(162, 108, 255, 0.7));
+  transition: stroke 0.2s, filter 0.2s;
+}
+.cursor-die .die-pip {
+  fill: var(--eva-purple);
+  filter: drop-shadow(0 0 2px rgba(162, 108, 255, 0.9));
+  transition: fill 0.2s, filter 0.2s;
+}
+body.has-cursor .cursor-die { display: block; }
 
-/* on hover: bigger, brighter, color shifts to green to mirror buttons */
+/* on hover: bigger + green, mirrors the button hover state */
 body.has-cursor.cursor-active .cursor-die {
-  color: var(--eva-green);
-  font-size: 36px;
-  margin: -18px 0 0 -18px;
-  text-shadow:
-    0 0 12px rgba(156, 255, 0, 0.6),
-    0 0 3px rgba(156, 255, 0, 0.9);
+  width: 38px; height: 38px;
+  margin: -19px 0 0 -19px;
+}
+body.has-cursor.cursor-active .cursor-die .die-frame {
+  stroke: var(--eva-green);
+  filter: drop-shadow(0 0 6px rgba(156, 255, 0, 0.7));
+}
+body.has-cursor.cursor-active .cursor-die .die-pip {
+  fill: var(--eva-green);
+  filter: drop-shadow(0 0 3px rgba(156, 255, 0, 0.95));
 }
 
 /* trail canvas — sits between page and cursor */
@@ -749,8 +728,16 @@ body.has-cursor #trail-canvas { display: block; }
 
 <!-- Custom cursor + trail (auto-hidden on touch / reduced-motion) -->
 <canvas id="trail-canvas" aria-hidden="true"></canvas>
-<div class="cursor-die" aria-hidden="true">⚀</div>
-<div class="cursor-dot" aria-hidden="true"></div>
+<div class="cursor-die" aria-hidden="true">
+  <!-- SVG die face — JS will swap the .die-pip group to show face 1..6 -->
+  <svg viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg">
+    <rect class="die-frame" x="2" y="2" width="24" height="24" rx="4" ry="4"/>
+    <g class="die-pip-group">
+      <!-- default: face 1 — single center pip -->
+      <circle class="die-pip" cx="14" cy="14" r="2"/>
+    </g>
+  </svg>
+</div>
 
 <!-- ===== Reusable SVG icons (Twitter, Telegram, GitHub, ArtStation, Mail) ===== -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -1043,7 +1030,7 @@ body.has-cursor #trail-canvas { display: block; }
         <div class="cover">
           <span class="tag" data-i18n="proj.roll.tag">Solo · 30 days</span>
           <span class="dice">⚀</span>
-          <video class="cover-video" src="videos/vid01.mp4" muted loop playsinline preload="metadata"></video>
+          <video class="cover-video" src="videos/vid01.mp4" autoplay muted loop playsinline preload="auto"></video>
         </div>
         <div class="body">
           <h3>Roll the Luck Next Time</h3>
@@ -1068,7 +1055,7 @@ body.has-cursor #trail-canvas { display: block; }
   └─────────┘
    T · w · T
           </pre>
-          <video class="cover-video" src="videos/vid02.mp4" muted loop playsinline preload="metadata"></video>
+          <video class="cover-video" src="videos/vid02.mp4" autoplay muted loop playsinline preload="auto"></video>
         </div>
         <div class="body">
           <h3>TwT</h3>
@@ -1314,7 +1301,7 @@ body.has-cursor #trail-canvas { display: block; }
 <footer class="bottom">
   <div class="wrap row">
     <div>© <span class="year" id="year-3303">3303</span> · <span data-i18n="footer.solo">designed &amp; coded solo</span></div>
-    <div>v0.9 · build <span style="color: var(--eva-purple);" id="build">000000</span></div>
+    <div>v1.0 · build <span style="color: var(--eva-purple);" id="build">000000</span></div>
   </div>
 </footer>
 
@@ -1561,7 +1548,7 @@ const i18n = {
     'nav.letter':     'Carta',
     'nav.online':     'En línea',
 
-    'hero.tag':  'Partida cargada · sesión 03',
+    'hero.tag':  'Todo hombre se sacrifica por sus ambiciones',
     'hero.aka':  'alias',
     'hero.role': '<b>Productor y diseñador de videojuegos</b> con más de 2 años lanzando títulos en vivo de principio a fin. Mejoro retención mediante diseño basado en datos, lidero un equipo multidisciplinario de 9 personas y opero live ops a escala.',
 
@@ -2038,7 +2025,7 @@ document.addEventListener('keydown', (e) => {
     cons.classList.toggle('open');
     if (cons.classList.contains('open')) {
       if (consOut.children.length === 0) {
-        consPrint('nerv-os :: console v0.9');
+        consPrint('nerv-os :: console v1.0');
         consPrint('type <span class="acc">help</span> for the list.');
       }
       setTimeout(() => consIn.focus(), 100);
@@ -2052,11 +2039,11 @@ consIn.addEventListener('keydown', (e) => {
 });
 
 /* ============================================================================
-   L. CUSTOM CURSOR (DICE) + TRAIL
+   L. CUSTOM CURSOR (SVG DICE) + TRAIL
    ----------------------------------------------------------------------------
-   Replaces the system cursor with a Unicode die face (⚀). Stays on face 1
-   while idle. While hovering an interactive element, the die rolls through
-   all six faces (matches the spinning-die motif on the RTLNT card).
+   Replaces the system cursor with an SVG die face. Stays on face 1 while
+   idle. While hovering an interactive element, the die rolls through all
+   six faces (matches the spinning-die motif on the RTLNT card).
    Trail = canvas with fading purple particles along the cursor path.
    Hidden on touch / coarse pointer devices, and respects reduced-motion.
    ============================================================================ */
@@ -2067,7 +2054,7 @@ consIn.addEventListener('keydown', (e) => {
 
   document.body.classList.add('has-cursor');
   const die = document.querySelector('.cursor-die');
-  const dot = document.querySelector('.cursor-dot');
+  const pipGroup = die.querySelector('.die-pip-group');
   const cvs = document.getElementById('trail-canvas');
   const ctx = cvs.getContext('2d');
 
@@ -2085,30 +2072,45 @@ consIn.addEventListener('keydown', (e) => {
 
   document.addEventListener('mousemove', (e) => {
     tx = e.clientX; ty = e.clientY;
-    // dot tracks instantly (it's the precise click anchor)
-    dot.style.transform = `translate(${tx}px, ${ty}px)`;
     // spawn a trail particle
     particles.push({ x: tx, y: ty, life: 1 });
     if (particles.length > 60) particles.shift();
   });
 
-  // === die face cycling ===
-  // Unicode die faces ⚀ ⚁ ⚂ ⚃ ⚄ ⚅
-  const FACES = ['\u2680', '\u2681', '\u2682', '\u2683', '\u2684', '\u2685'];
+  // === SVG die faces — pip layouts on a 28×28 grid ===
+  // Each face is an array of [cx, cy] points where pips sit.
+  const PIP_R = 2;
+  const FACES = [
+    /* 1 */ [[14,14]],
+    /* 2 */ [[8,8],[20,20]],
+    /* 3 */ [[8,8],[14,14],[20,20]],
+    /* 4 */ [[8,8],[20,8],[8,20],[20,20]],
+    /* 5 */ [[8,8],[20,8],[14,14],[8,20],[20,20]],
+    /* 6 */ [[8,7],[20,7],[8,14],[20,14],[8,21],[20,21]]
+  ];
+
+  function setFace(i) {
+    const pips = FACES[i];
+    let svg = '';
+    for (const [cx, cy] of pips) {
+      svg += `<circle class="die-pip" cx="${cx}" cy="${cy}" r="${PIP_R}"/>`;
+    }
+    pipGroup.innerHTML = svg;
+  }
+
   let faceIdx = 0;
   let rollTimer = null;
   function startRolling() {
     if (rollTimer) return;
     rollTimer = setInterval(() => {
       faceIdx = (faceIdx + 1) % FACES.length;
-      die.textContent = FACES[faceIdx];
+      setFace(faceIdx);
     }, 90);
   }
   function stopRolling() {
     if (rollTimer) { clearInterval(rollTimer); rollTimer = null; }
-    // settle back to face 1 when idle
     faceIdx = 0;
-    die.textContent = FACES[0];
+    setFace(0);
   }
 
   // grow + roll on interactive elements
@@ -2129,7 +2131,7 @@ consIn.addEventListener('keydown', (e) => {
   // trail particles
   const particles = [];
   function tick() {
-    // die inertia (a beat behind the dot, makes the cursor feel weighty)
+    // die inertia (a beat behind the actual mouse, gives a weighty feel)
     dx += (tx - dx) * 0.22;
     dy += (ty - dy) * 0.22;
     die.style.transform = `translate(${dx}px, ${dy}px)`;
@@ -2150,45 +2152,55 @@ consIn.addEventListener('keydown', (e) => {
 })();
 
 /* ============================================================================
-   N. CARD VIDEO PREVIEWS — start playback on hover, pause on leave.
-   Also makes mobile (no-hover) play once on scroll into view, since hover
-   never fires there.
+   N. CARD VIDEO PREVIEWS — autoplay always while on screen.
+   ----------------------------------------------------------------------------
+   Videos play continuously as long as the card is in view. The CSS hides
+   them on hover (revealing the ASCII art beneath), but the underlying
+   <video> element keeps playing — when the user moves the mouse away,
+   playback is already at the right spot, no restart needed.
+   We pause off-screen videos to save battery + CPU, and pause everything
+   when the tab is hidden.
    ============================================================================ */
 (function setupCardVideos() {
   const videos = document.querySelectorAll('.card .cover-video');
   if (!videos.length) return;
 
-  const fineHover = window.matchMedia('(hover: hover)').matches;
+  // Try to start playback immediately. Browsers allow autoplay only when
+  // muted+playsinline, which both <video> tags already are.
+  function tryPlay(v) {
+    const p = v.play();
+    if (p && p.catch) p.catch(() => { /* autoplay blocked — will retry below */ });
+  }
 
-  videos.forEach(v => {
-    if (fineHover) {
-      // desktop: tied to card hover
-      const card = v.closest('.card');
-      card.addEventListener('mouseenter', () => {
-        const playPromise = v.play();
-        if (playPromise && playPromise.catch) playPromise.catch(() => {});
-      });
-      card.addEventListener('mouseleave', () => {
-        v.pause();
-        v.currentTime = 0;
+  videos.forEach(tryPlay);
+
+  // Pause videos that are off-screen, resume when they scroll back in.
+  // Saves CPU/battery and prevents many videos from running at once.
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) tryPlay(e.target);
+      else e.target.pause();
+    });
+  }, { threshold: 0.1 });
+  videos.forEach(v => io.observe(v));
+
+  // Pause everything when the tab is hidden, resume on focus.
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      videos.forEach(v => v.pause());
+    } else {
+      videos.forEach(v => {
+        const r = v.getBoundingClientRect();
+        if (r.bottom > 0 && r.top < window.innerHeight) tryPlay(v);
       });
     }
   });
 
-  // mobile / touch: when card scrolls into view, video reveals + plays once
-  if (!fineHover) {
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          const v = e.target;
-          v.style.opacity = '1';
-          const p = v.play();
-          if (p && p.catch) p.catch(() => {});
-        }
-      });
-    }, { threshold: 0.5 });
-    videos.forEach(v => io.observe(v));
-  }
+  // Some browsers block autoplay until first user interaction. Catch the
+  // first click anywhere and kick playback again.
+  document.addEventListener('click', () => {
+    videos.forEach(v => { if (v.paused) tryPlay(v); });
+  }, { once: true });
 })();
 
 
