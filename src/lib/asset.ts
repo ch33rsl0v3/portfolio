@@ -1,3 +1,8 @@
-// Resolve a public asset path against the Vite base (/portfolio/ in prod),
-// so /images/... and /videos/... keep working under GitHub Pages.
-export const asset = (p: string) => `${import.meta.env.BASE_URL}${p.replace(/^\//, "")}`
+// Resolve a bare media filename to a public URL under the Vite base path.
+// Video extensions go to /videos/, everything else to /images/.
+const VIDEO_RE = /\.(mp4|webm|ogg|mov|m4v)$/i
+
+export const asset = (name: string) => {
+  const dir = VIDEO_RE.test(name) ? "videos" : "images"
+  return `${import.meta.env.BASE_URL}${dir}/${name}`
+}
