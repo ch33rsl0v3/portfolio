@@ -1,19 +1,13 @@
-import { useTranslation } from "react-i18next"
 import { Wrap } from "@/components/Wrap"
 import { LangSwitch } from "@/components/LangSwitch"
 import { Icon } from "@/components/Icons"
-import { socials } from "@/data/socials"
-
-const NAV_LINKS = [
-  { hash: "#experience", key: "nav.experience" },
-  { hash: "#projects", key: "nav.projects" },
-  { hash: "#artworks", key: "nav.artworks" },
-  { hash: "#about", key: "nav.about" },
-  { hash: "#contact", key: "nav.letter" },
-]
+import { navLinks, ui } from "@/content/ui"
+import { socials } from "@/content/socials"
+import { tc } from "@/lib/tc"
+import { useLang } from "@/lib/useLang"
 
 export function Nav() {
-  const { t } = useTranslation()
+  useLang() // subscribe so labels re-render on language change
 
   return (
     <nav className="sticky top-0 z-50 border-b border-line bg-[rgba(10,6,18,0.88)] backdrop-blur-[8px]">
@@ -23,13 +17,13 @@ export function Nav() {
         </div>
 
         <ul className="flex list-none gap-6 max-[800px]:hidden">
-          {NAV_LINKS.map((l) => (
+          {navLinks.map((l) => (
             <li key={l.hash}>
               <a
                 href={l.hash}
                 className="border-b border-transparent py-1 text-xs uppercase tracking-[0.1em] text-ink-dim transition-colors hover:border-eva-purple hover:text-eva-purple hover:no-underline"
               >
-                {t(l.key)}
+                {tc(l.label)}
               </a>
             </li>
           ))}
@@ -53,7 +47,7 @@ export function Nav() {
           </div>
           <span className="inline-flex items-center gap-1.5">
             <span className="status-dot" />
-            <span>{t("nav.online")}</span>
+            <span>{tc(ui.online)}</span>
           </span>
         </div>
       </Wrap>

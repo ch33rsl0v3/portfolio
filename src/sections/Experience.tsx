@@ -1,16 +1,18 @@
-import { useTranslation } from "react-i18next"
 import { Wrap } from "@/components/Wrap"
 import { Reveal } from "@/components/Reveal"
 import { SectionHead } from "@/components/SectionHead"
 import { ContractCard } from "@/components/ContractCard"
-import { contracts } from "@/data/contracts"
+import { contracts } from "@/content/contracts"
+import { sectionHeads } from "@/content/ui"
+import { tc } from "@/lib/tc"
+import { useLang } from "@/lib/useLang"
 
 export function Experience() {
-  const { t } = useTranslation()
+  useLang()
   return (
     <section id="experience" className="bg-pattern border-b border-line py-20">
       <Wrap>
-        <SectionHead title={t("exp.title")} meta={t("exp.subtitle")} />
+        <SectionHead title={tc(sectionHeads.experience.title)} meta={tc(sectionHeads.experience.subtitle!)} />
         <div className="grid gap-8">
           {contracts.map((contract) => (
             <Reveal key={contract.id}>

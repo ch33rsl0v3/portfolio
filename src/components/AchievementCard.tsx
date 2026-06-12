@@ -1,9 +1,10 @@
-import { useTranslation } from "react-i18next"
 import { asset } from "@/lib/asset"
-import type { Achievement } from "@/data/achievements"
+import { tc } from "@/lib/tc"
+import { useLang } from "@/lib/useLang"
+import type { Achievement } from "@/content/types"
 
 export function AchievementCard({ achievement }: { achievement: Achievement }) {
-  const { t } = useTranslation()
+  useLang() // subscribe to language changes
   return (
     <article
       data-card
@@ -17,7 +18,7 @@ export function AchievementCard({ achievement }: { achievement: Achievement }) {
           {achievement.title}
         </h5>
         <div className="mb-2 text-[10px] uppercase tracking-[0.15em] text-eva-purple">{achievement.tag}</div>
-        <p className="text-xs leading-[1.55] text-ink-dim">{t(achievement.descKey)}</p>
+        <p className="text-xs leading-[1.55] text-ink-dim">{tc(achievement.desc)}</p>
       </div>
     </article>
   )

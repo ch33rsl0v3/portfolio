@@ -1,4 +1,4 @@
-import type { IconName } from "@/data/socials"
+import type { IconName } from "@/content/types"
 
 // SVG paths ported 1:1 from the legacy <symbol> sprite. Single source of truth
 // for all brand/util icons so they look identical across OSes and fonts.
