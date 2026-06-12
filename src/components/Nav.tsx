@@ -1,8 +1,7 @@
 import { Wrap } from "@/components/Wrap"
 import { LangSwitch } from "@/components/LangSwitch"
-import { Icon } from "@/components/Icons"
+import { SocialLinks } from "@/components/SocialLinks"
 import { navLinks, ui } from "@/content/ui"
-import { socials } from "@/content/socials"
 import { tc } from "@/lib/tc"
 import { useLang } from "@/lib/useLang"
 
@@ -31,20 +30,7 @@ export function Nav() {
 
         <div className="flex items-center gap-4 text-[11px] text-ink-mute max-[800px]:hidden">
           <LangSwitch />
-          <div className="flex items-center gap-[0.85rem]">
-            {socials.map((s) => (
-              <a
-                key={s.label}
-                href={s.href}
-                target="_blank"
-                rel="noopener"
-                aria-label={s.label}
-                className="inline-flex items-center text-ink-dim transition-colors hover:text-eva-green"
-              >
-                <Icon name={s.icon} />
-              </a>
-            ))}
-          </div>
+          <SocialLinks />
           <span className="inline-flex items-center gap-1.5">
             <span className="status-dot" />
             <span>{tc(ui.online)}</span>
