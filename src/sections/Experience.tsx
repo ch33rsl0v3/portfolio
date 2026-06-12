@@ -13,7 +13,7 @@ export function Experience() {
     <section id="experience" className="bg-pattern border-b border-line py-20">
       <Wrap>
         <SectionHead title={tc(sectionHeads.experience.title)} meta={tc(sectionHeads.experience.subtitle!)} />
-        <div className="grid gap-8">
+          <div className="grid grid-cols-1 gap-8">
           {contracts.map((contract) => (
             <Reveal key={contract.id}>
               <ContractCard contract={contract} />

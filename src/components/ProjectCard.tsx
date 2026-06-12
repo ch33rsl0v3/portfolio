@@ -8,7 +8,7 @@ export function ProjectCard({ project }: { project: Project }) {
   useLang() // subscribe to language changes
 
   return (
-    <article className="group relative flex flex-col border border-line bg-bg-2 transition-colors hover:border-eva-purple">
+    <article className="group relative flex h-full w-full flex-col border border-line bg-bg-2 transition-colors hover:border-eva-purple">
       <div className="relative flex h-[220px] items-center justify-center overflow-hidden border-b border-line bg-[linear-gradient(135deg,var(--color-bg-3)_0%,var(--color-bg)_100%)]">
         {project.tag && (
           <span className="absolute right-3 top-3 z-10 text-[10px] uppercase tracking-[0.1em] text-ink-mute">
@@ -49,13 +49,13 @@ export function ProjectCard({ project }: { project: Project }) {
         )}
       </div>
 
-      <div className="p-6">
+      <div className="flex flex-1 flex-col p-6">
         <h3 className="mb-1.5 font-display text-xl font-bold tracking-[-0.01em] text-ink">{project.title}</h3>
         <div className="mb-4 text-[10px] uppercase tracking-[0.15em] text-ink-mute">{tc(project.role)}</div>
         <p className="mb-5 text-[13px] leading-[1.6] text-ink-dim">{tc(project.desc)}</p>
-        <div className="flex flex-wrap gap-3 text-[11px]">
+        <div className="mt-auto flex flex-wrap gap-3 text-[11px]">
           {project.actions.map((a, i) => (
-            <Btn key={i} href={a.href} external arrow={i === 0}>
+            <Btn key={i} href={a.href} external primary={a.primary} arrow={a.arrow}>
               {tc(a.label)}
             </Btn>
           ))}

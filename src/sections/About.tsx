@@ -39,8 +39,8 @@ export function About() {
       <Wrap>
         <SectionHead title={tc(sectionHeads.about.title)} meta={tc(sectionHeads.about.subtitle!)} />
 
-        <Reveal className="grid grid-cols-[2fr_1fr] gap-16 max-[800px]:grid-cols-1 max-[800px]:gap-8">
-          <div className="text-sm leading-[1.85] text-ink-dim">
+        <Reveal className="grid grid-cols-[2fr_1fr] items-start gap-16 max-[800px]:grid-cols-1 max-[800px]:gap-8">
+            <div className="text-[17px] leading-[1.9] text-ink-dim">
             <p className="mb-5">{rich(about.bio)}</p>
             <p className="mt-8">
               <Btn href={about.resumeHref} primary arrow external>

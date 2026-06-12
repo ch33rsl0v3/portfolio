@@ -81,6 +81,8 @@ export interface Contract {
 export interface ProjectAction {
   label: Localized
   href: string
+  primary?: boolean // зелёная кнопка (Play)
+  arrow?: boolean // со стрелкой (Git, GDD)
 }
 
 export interface Project {

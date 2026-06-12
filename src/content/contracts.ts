@@ -4,8 +4,47 @@ import type { Contract } from "./types"
 // side by side. To add a job: copy a Contract object into the array.
 export const contracts: Contract[] = [
   {
-    id: "001",
+    id: "002",
     status: "active",
+    role: {
+      en: "Lead Game Producer",
+      ru: "Ведущий геймпродюсер",
+      es: "Productor de videojuegos principal",
+    },
+    party: "M. Redfield",
+    company: "Fazliddin Games",
+    companyHref: "https://fazliddingames.com/",
+    effective: {
+      en: "Effective **May 2026** — **now**",
+      ru: "Действителен с **мая 2026** — по **настоящее время**",
+      es: "Vigente desde **may 2026** — **actualidad**",
+    },
+    terms: [
+      {
+        en: "Led end-to-end production of games from concept and pre-production through launch, updates and post-release support.",
+        ru: "Веду продакшн от концепта и пре-продакшна до релиза, обновлений и пострелизной поддержки.",
+        es: "Lidero la producción completa desde concepto y pre-producción hasta lanzamiento, actualizaciones y soporte post-lanzamiento.",
+      },
+      {
+        en: "Built and executed project roadmaps, managed scope, timeline, and team resources on flagship cycles.",
+        ru: "Строю и выполняю роадмапы; управляю скоупом, сроками и ресурсами команды на флагманских циклах.",
+        es: "Construyo y ejecuto roadmaps; gestiono alcance, plazos y recursos del equipo en ciclos insignia.",
+      },
+    ],
+    metrics: [],
+    projects: [],
+    actions: [
+      {
+        label: { en: "Studio info", ru: "О студии", es: "Sobre el estudio" },
+        href: "https://fazliddingames.com/",
+        primary: true,
+      },
+    ],
+    seal: { en: "// signed", ru: "// подписано", es: "// firmado" },
+  },
+  {
+    id: "001",
+    status: "fulfilled",
     role: {
       en: "Game Producer & Game Designer",
       ru: "Геймпродюсер и геймдизайнер",
@@ -16,8 +55,8 @@ export const contracts: Contract[] = [
     companyHref: "https://www.velgames.com/",
     effective: {
       en: "Effective **Jun 2024** — **May 2026**",
-      ru: "Действителен с **июня 2024** — по настоящее время",
-      es: "Vigente desde **jun 2024** — actualidad · en curso",
+      ru: "Действителен с **июня 2024** — по **май 2026**",
+      es: "Vigente desde **jun 2024** — **may 2026**",
     },
     terms: [
       {
@@ -112,10 +151,6 @@ export const contracts: Contract[] = [
         label: { en: "Studio info", ru: "О студии", es: "Sobre el estudio" },
         href: "https://www.velgames.com/",
         primary: true,
-      },
-      {
-        label: { en: "Process notes", ru: "Процесс", es: "Notas de proceso" },
-        href: "#",
       },
     ],
     seal: { en: "// signed", ru: "// подписано", es: "// firmado" },

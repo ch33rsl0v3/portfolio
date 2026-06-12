@@ -42,7 +42,7 @@ export function Contact() {
           <ul className="list-none">
             {contactRows.map((row) => (
               <li
-                key={row.value}
+                key={row.icon}
                 className="grid grid-cols-[24px_100px_1fr] items-center gap-3 border-b border-line py-4 text-[13px] max-[800px]:grid-cols-[24px_80px_1fr]"
               >
                 <span className={row.icon === "dot" ? "inline-flex text-ink-mute" : "inline-flex text-eva-purple"}>

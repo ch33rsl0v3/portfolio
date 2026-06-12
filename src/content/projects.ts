@@ -14,8 +14,9 @@ export const projects: Project[] = [
       es: "A teenage mouse with an electric guitar searches for his missing mother in a 60s “American Dream” city that turns out to be a social experiment. Narrative Roguelite String Battler with adventure elements.",
     },
     actions: [
-      { label: { en: "NOT", ru: "NOT", es: "NOT" }, href: "#" },
-      { label: { en: "YET", ru: "YET", es: "YET" }, href: "#" },
+      { label: { en: "Play", ru: "Играть", es: "Jugar" }, href: "#", primary: true },
+      { label: { en: "Git", ru: "Git", es: "Git" }, href: "#", arrow: true },
+      { label: { en: "DOC", ru: "DOC", es: "DOC" }, href: "#", arrow: true },
     ],
   },
   {
@@ -35,13 +36,12 @@ export const projects: Project[] = [
       es: "Roguelike donde los dados te mueven, luchan y pagan las cuentas. Hecho en solitario en 30 días. Diseñé el loop principal, el generador de niveles y la curva de progresión.",
     },
     actions: [
+      { label: { en: "Play", ru: "Играть", es: "Jugar" }, href: "https://ch33rs.itch.io/roll-the-luck-next-time", primary: true },
+      { label: { en: "Git", ru: "Git", es: "Git" }, href: "#", arrow: true },
       {
-        label: { en: "GDD", ru: "GDD", es: "GDD" },
+        label: { en: "DOC", ru: "DOC", es: "DOC" },
         href: "https://docs.google.com/document/d/17oyeH3imldELEgknJGIvGNp7SO51-JLQJsSaMBTylEA/edit?usp=sharing",
-      },
-      {
-        label: { en: "Play", ru: "Играть", es: "Jugar" },
-        href: "https://ch33rs.itch.io/roll-the-luck-next-time",
+        arrow: true,
       },
     ],
   },
@@ -68,13 +68,12 @@ export const projects: Project[] = [
       es: "Puzle construido sobre una sola mecánica: rota la cámara para resolver el nivel. Pequeño, raro, terminado.",
     },
     actions: [
+      { label: { en: "Play", ru: "Играть", es: "Jugar" }, href: "https://ch33rs.itch.io/twt", primary: true },
+      { label: { en: "Git", ru: "Git", es: "Git" }, href: "#", arrow: true },
       {
-        label: { en: "GDD", ru: "GDD", es: "GDD" },
+        label: { en: "DOC", ru: "DOC", es: "DOC" },
         href: "https://docs.google.com/document/d/147rXtd2zQIqs6l-NS7G5kbPCuRCZ8fQ0jnLNrcHyWiE/edit?usp=sharing",
-      },
-      {
-        label: { en: "Play", ru: "Играть", es: "Jugar" },
-        href: "https://ch33rs.itch.io/twt",
+        arrow: true,
       },
     ],
   },

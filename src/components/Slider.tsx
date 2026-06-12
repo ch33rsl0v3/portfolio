@@ -143,7 +143,7 @@ export function Slider({ title, cardCount, children, className }: SliderProps) {
       <div
         ref={trackRef}
         onScroll={updateCounter}
-        className="no-scrollbar flex snap-x snap-mandatory gap-4 overflow-x-auto pb-1 [scroll-behavior:smooth]"
+        className="no-scrollbar flex min-w-0 snap-x snap-mandatory gap-4 overflow-x-auto pb-1 [scroll-behavior:smooth]"
       >
         {children}
       </div>
