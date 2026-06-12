@@ -1,14 +1,17 @@
 import { asset } from "@/lib/asset"
 import { tc } from "@/lib/tc"
 import { useLang } from "@/lib/useLang"
+import { useSpotlight } from "@/lib/useSpotlight"
 import type { Achievement } from "@/content/types"
 
 export function AchievementCard({ achievement }: { achievement: Achievement }) {
   useLang() // subscribe to language changes
+  const spot = useSpotlight()
   return (
     <article
+      ref={spot}
       data-card
-      className="flex w-[280px] flex-none snap-start flex-col overflow-hidden border border-line bg-bg transition-[border-color,transform] duration-200 hover:-translate-y-0.5 hover:border-eva-purple max-[800px]:w-[240px]"
+      className="spotlight flex w-[280px] flex-none snap-start flex-col overflow-hidden border border-line bg-bg transition-[border-color,transform] duration-200 hover:-translate-y-0.5 hover:border-eva-purple max-[800px]:w-[240px]"
     >
       <div className="relative flex aspect-[16/10] items-center justify-center overflow-hidden bg-[linear-gradient(135deg,var(--color-bg-3),var(--color-bg-2)),repeating-linear-gradient(45deg,var(--color-line)_0_1px,transparent_1px_14px)]">
         <img src={asset(achievement.image)} alt={achievement.title} className="h-full w-full object-cover" />

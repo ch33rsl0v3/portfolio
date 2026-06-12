@@ -1,5 +1,5 @@
-import { Fragment } from "react"
 import { Wrap } from "@/components/Wrap"
+import { GlitchName } from "@/components/GlitchName"
 import { hero } from "@/content/hero"
 import { tc, rich } from "@/lib/tc"
 import { useLang } from "@/lib/useLang"
@@ -15,12 +15,7 @@ export function Hero() {
         </div>
 
         <h1 className="mb-8 font-display text-[clamp(48px,9vw,120px)] font-black leading-[0.92] tracking-[-0.02em] text-ink">
-          {hero.name.map((line, i) => (
-            <Fragment key={line}>
-              {i > 0 && <br />}
-              {line}
-            </Fragment>
-          ))}
+          <GlitchName lines={hero.name} />
           <span className="mt-6 block font-mono text-[0.18em] font-normal tracking-[0.15em] text-eva-green">
             {tc(hero.aka)} {hero.handle}
           </span>

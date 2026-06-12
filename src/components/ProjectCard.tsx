@@ -2,13 +2,18 @@ import { Btn } from "@/components/Btn"
 import { asset } from "@/lib/asset"
 import { tc } from "@/lib/tc"
 import { useLang } from "@/lib/useLang"
+import { useSpotlight } from "@/lib/useSpotlight"
 import type { Project } from "@/content/types"
 
 export function ProjectCard({ project }: { project: Project }) {
   useLang() // subscribe to language changes
+  const spot = useSpotlight()
 
   return (
-    <article className="group relative flex h-full w-full flex-col border border-line bg-bg-2 transition-colors hover:border-eva-purple">
+    <article
+      ref={spot}
+      className="spotlight group relative flex h-full w-full flex-col border border-line bg-bg-2 transition-colors hover:border-eva-purple"
+    >
       <div className="relative flex h-[220px] items-center justify-center overflow-hidden border-b border-line bg-[linear-gradient(135deg,var(--color-bg-3)_0%,var(--color-bg)_100%)]">
         {project.tag && (
           <span className="absolute right-3 top-3 z-10 text-[10px] uppercase tracking-[0.1em] text-ink-mute">

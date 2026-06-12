@@ -5,12 +5,15 @@ import { ui } from "@/content/ui"
 import type { Contract, ContractProject } from "@/content/types"
 import { tc, rich } from "@/lib/tc"
 import { useLang } from "@/lib/useLang"
+import { useSpotlight } from "@/lib/useSpotlight"
 
 function ProjectCard({ project }: { project: ContractProject }) {
+  const spot = useSpotlight()
   return (
     <article
+      ref={spot}
       data-card
-      className="flex w-[280px] flex-none snap-start flex-col border border-line bg-bg p-[1rem_1.1rem] transition-[border-color,transform] duration-200 hover:-translate-y-0.5 hover:border-eva-purple max-[800px]:w-[240px]"
+      className="spotlight flex w-[280px] flex-none snap-start flex-col border border-line bg-bg p-[1rem_1.1rem] transition-[border-color,transform] duration-200 hover:-translate-y-0.5 hover:border-eva-purple max-[800px]:w-[240px]"
     >
       <h5 className="mb-1 font-display text-base tracking-[-0.01em] text-ink">{project.title}</h5>
       <div className="mb-2.5 text-[10px] uppercase tracking-[0.15em] text-eva-purple">{project.tag}</div>
@@ -33,10 +36,14 @@ function ProjectCard({ project }: { project: ContractProject }) {
 
 export function ContractCard({ contract }: { contract: Contract }) {
   useLang() // subscribe to language changes
+  const spot = useSpotlight()
   const active = contract.status === "active"
 
   return (
-    <article className={cn("relative border bg-bg-2", active ? "border-eva-purple" : "border-line-bright")}>
+    <article
+      ref={spot}
+      className={cn("spotlight relative border bg-bg-2", active ? "border-eva-purple" : "border-line-bright")}
+    >
       {/* active sheen overlay (legacy .contract.active::before) */}
       {active && (
         <div

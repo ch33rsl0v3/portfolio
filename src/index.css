@@ -157,7 +157,10 @@
     html {
       scroll-behavior: auto;
     }
+    /* show revealed content immediately — no fade, no shift */
     .reveal {
+      opacity: 1 !important;
+      transform: none !important;
       transition: none !important;
     }
   }
@@ -252,17 +255,151 @@ body::after {
   }
 }
 
-/* reveal-on-scroll fade-in */
+/* reveal-on-scroll: fade up + settle, once */
 .reveal {
   opacity: 0;
   transform: translateY(20px);
   transition:
-    opacity 0.6s,
-    transform 0.6s;
+    opacity 0.6s ease-out,
+    transform 0.6s ease-out;
+  will-change: opacity, transform;
 }
 .reveal.in {
   opacity: 1;
-  transform: translateY(0);
+  transform: none;
+}
+
+/* ============================================================================
+   SPOTLIGHT — cursor-following purple glow on cards. The element exposes
+   --mx/--my (set by useSpotlight); the glow is a ::before behind content
+   (z-index:-1 inside an isolated stacking context), shown only on hover.
+   ============================================================================ */
+.spotlight {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.spotlight::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1; /* above the card's own background, below its content */
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  background: radial-gradient(
+    circle at var(--mx, 50%) var(--my, 50%),
+    rgba(162, 108, 255, 0.12),
+    transparent 40%
+  );
+}
+.spotlight:hover::before {
+  opacity: 1;
+}
+
+/* ============================================================================
+   MARQUEE — seamless infinite CRT ticker used as a section divider.
+   Content is duplicated twice; translateX(-50%) loops one copy width.
+   ============================================================================ */
+.marquee {
+  overflow: hidden;
+  pointer-events: none;
+  border-top: 1px solid var(--color-line);
+  border-bottom: 1px solid var(--color-line);
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    black 12%,
+    black 88%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(to right, transparent 0, black 12%, black 88%, transparent 100%);
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 28s linear infinite;
+}
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+  }
+}
+
+/* ============================================================================
+   CRT GLITCH NAME (hero) — RGB channel split on hover, clean at rest.
+   Each name line is its own .glitch-line[data-text] so the ::before/::after
+   layers pull the text via attr(data-text) and glitch independently — no <br>
+   inside generated content. Layers are absolute (out of flow) so the heading
+   layout never shifts. Pure CSS, no JS. Fully gated behind reduced-motion.
+   ============================================================================ */
+.glitch {
+  display: block;
+}
+.glitch-line {
+  position: relative;
+  display: block;
+}
+.glitch-line::before,
+.glitch-line::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  /* same box + inherited typography = pixel-perfect overlap of the base text */
+}
+.glitch-line::before {
+  color: var(--color-blood); /* CSM red / magenta channel */
+}
+.glitch-line::after {
+  color: var(--color-eva-green); /* cyan / green channel */
+}
+
+/* run the split only on real hover-capable pointers */
+@media (hover: hover) and (pointer: fine) {
+  .glitch:hover .glitch-line::before {
+    opacity: 0.85;
+    animation: glitch-red 0.35s steps(2, end) infinite;
+  }
+  .glitch:hover .glitch-line::after {
+    opacity: 0.85;
+    animation: glitch-cyan 0.35s steps(2, end) infinite;
+  }
+}
+
+@keyframes glitch-red {
+  0% { clip-path: inset(0 0 72% 0); transform: translateX(-3px); }
+  20% { clip-path: inset(38% 0 40% 0); transform: translateX(3px); }
+  40% { clip-path: inset(68% 0 8% 0); transform: translateX(-2px); }
+  60% { clip-path: inset(18% 0 52% 0); transform: translateX(2px); }
+  80% { clip-path: inset(58% 0 22% 0); transform: translateX(-3px); }
+  100% { clip-path: inset(8% 0 64% 0); transform: translateX(3px); }
+}
+@keyframes glitch-cyan {
+  0% { clip-path: inset(60% 0 12% 0); transform: translateX(3px); }
+  20% { clip-path: inset(22% 0 54% 0); transform: translateX(-3px); }
+  40% { clip-path: inset(12% 0 66% 0); transform: translateX(2px); }
+  60% { clip-path: inset(50% 0 20% 0); transform: translateX(-2px); }
+  80% { clip-path: inset(30% 0 48% 0); transform: translateX(3px); }
+  100% { clip-path: inset(64% 0 6% 0); transform: translateX(-3px); }
+}
+
+/* accessibility: no glitch at all — name stays clean and static */
+@media (prefers-reduced-motion: reduce) {
+  .glitch:hover .glitch-line::before,
+  .glitch:hover .glitch-line::after {
+    animation: none;
+    opacity: 0;
+  }
 }
 
 /* director's-note commentary — hidden until commentary mode is toggled (Konami,

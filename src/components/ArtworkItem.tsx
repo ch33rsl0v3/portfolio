@@ -1,17 +1,20 @@
 import { asset } from "@/lib/asset"
 import { tc, rich } from "@/lib/tc"
 import { useLang } from "@/lib/useLang"
+import { useSpotlight } from "@/lib/useSpotlight"
 import type { Artwork } from "@/content/types"
 
 export function ArtworkItem({ art }: { art: Artwork }) {
   useLang() // subscribe to language changes
+  const spot = useSpotlight<HTMLAnchorElement>()
 
   return (
     <a
+      ref={spot}
       href={art.href}
       target="_blank"
       rel="noopener"
-      className="group relative block w-[320px] flex-none cursor-pointer snap-start overflow-hidden border border-line bg-bg-2 outline-none transition-[border-color,transform,box-shadow] duration-200 hover:-translate-y-1 hover:border-eva-purple hover:no-underline hover:shadow-[0_0_20px_-4px_var(--eva-purple)] focus-visible:border-eva-purple focus-visible:shadow-[0_0_20px_-4px_var(--eva-purple)] max-[800px]:w-[260px]"
+      className="spotlight group relative block w-[320px] flex-none cursor-pointer snap-start overflow-hidden border border-line bg-bg-2 outline-none transition-[border-color,transform,box-shadow] duration-200 hover:-translate-y-1 hover:border-eva-purple hover:no-underline hover:shadow-[0_0_20px_-4px_var(--eva-purple)] focus-visible:border-eva-purple focus-visible:shadow-[0_0_20px_-4px_var(--eva-purple)] max-[800px]:w-[260px]"
     >
       <div className="relative h-[280px] overflow-hidden bg-bg-3 max-[800px]:h-[220px]">
         {art.kind === "image" && art.image ? (
