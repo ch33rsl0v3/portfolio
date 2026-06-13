@@ -3,6 +3,18 @@ import type { Artwork } from "./types"
 // ARTWORKS gallery (#artworks). Images stored as bare filenames.
 export const artworks: Artwork[] = [
   {
+    id: "aw03",
+    kind: "image",
+    href: "https://www.artstation.com/artwork/DLJmdO",
+    image: "aw03.jpg",
+    title: { en: "Yoru, The War Devil", ru: "Yoru, The War Devil", es: "Yoru, The War Devil" },
+    caption: {
+      en: "My first full pipeline work.",
+      ru: "Моя первая работа по полному пайплайну.",
+      es: "Mi primer trabajo de pipeline completo.",
+    },
+  },
+  {
     id: "aw01",
     kind: "image",
     href: "https://www.artstation.com/artwork/5vzZ0O",
@@ -24,6 +36,18 @@ export const artworks: Artwork[] = [
       en: "Forest nymph study",
       ru: "Этюд лесной нимфы",
       es: "Estudio de ninfa del bosque",
+    },
+  },
+  {
+    id: "aw04",
+    kind: "image",
+    href: "https://www.artstation.com/artwork/m8OnmE",
+    image: "aw04.jpg",
+    title: { en: "Chun Li", ru: "Chun Li", es: "Chun Li" },
+    caption: {
+      en: "Yes",
+      ru: "Да",
+      es: "Sí",
     },
   },
   {

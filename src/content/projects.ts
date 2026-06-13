@@ -6,16 +6,15 @@ export const projects: Project[] = [
     id: "msa",
     title: "MUSIC. STRINGS. ACTION!",
     cover: "prj01.jpg",
-    // legacy ru/es fell back to en for this card — preserved verbatim
-    role: { en: "Father · 2026", ru: "Father · 2026", es: "Father · 2026" },
+    role: { en: "Father · 2026", ru: "Отец · 2026", es: "Padre · 2026" },
     desc: {
       en: "A teenage mouse with an electric guitar searches for his missing mother in a 60s “American Dream” city that turns out to be a social experiment. Narrative Roguelite String Battler with adventure elements.",
-      ru: "A teenage mouse with an electric guitar searches for his missing mother in a 60s “American Dream” city that turns out to be a social experiment. Narrative Roguelite String Battler with adventure elements.",
-      es: "A teenage mouse with an electric guitar searches for his missing mother in a 60s “American Dream” city that turns out to be a social experiment. Narrative Roguelite String Battler with adventure elements.",
+      ru: "Мышонок-подросток с электрогитарой ищет пропавшую мать в городе 60-х в духе «американской мечты», который оказывается социальным экспериментом. Нарративный рогалайт-баттлер на струнах с элементами приключений.",
+      es: "Un ratón adolescente con una guitarra eléctrica busca a su madre desaparecida en una ciudad sesentera del «Sueño Americano» que resulta ser un experimento social. Battler de cuerdas roguelite narrativo con elementos de aventura.",
     },
     actions: [
       { label: { en: "Play", ru: "Играть", es: "Jugar" }, href: "#", primary: true },
-      { label: { en: "Git", ru: "Git", es: "Git" }, href: "#", arrow: true },
+      { label: { en: "Git", ru: "Git", es: "Git" }, href: "https://github.com/3303AJFA/MSA-Demo", arrow: true },
       { label: { en: "DOC", ru: "DOC", es: "DOC" }, href: "#", arrow: true },
     ],
   },
@@ -24,7 +23,7 @@ export const projects: Project[] = [
     title: "Roll the Luck Next Time",
     video: "vid01.mp4",
     dice: true,
-    tag: { en: "Team of 3 · 30 days", ru: "Соло · 30 дней", es: "Solo · 30 días" },
+    tag: { en: "Team of 3 · 30 days", ru: "Команда из 3 · 30 дней", es: "Equipo de 3 · 30 días" },
     role: {
       en: "Designer · 2D artist · C# · 2023",
       ru: "Дизайнер · 2D-художник · C# · 2023",
@@ -32,12 +31,12 @@ export const projects: Project[] = [
     },
     desc: {
       en: "Roguelike where dice rolls move you, fight enemies, and pay the bills. Built in team of 3 in 30 days. Designed the core loop, level generator, and progression curve.",
-      ru: "Рогалик, где броски кубиков двигают тебя, бьют врагов и оплачивают счета. Сделан соло за 30 дней. Спроектировал основной луп, генератор уровней и кривую прогрессии.",
-      es: "Roguelike donde los dados te mueven, luchan y pagan las cuentas. Hecho en solitario en 30 días. Diseñé el loop principal, el generador de niveles y la curva de progresión.",
+      ru: "Рогалик, где броски кубиков двигают тебя, бьют врагов и оплачивают счета. Сделан командой из 3 за 30 дней. Спроектировал основной луп, генератор уровней и кривую прогрессии.",
+      es: "Roguelike donde los dados te mueven, luchan y pagan las cuentas. Hecho en equipo de 3 en 30 días. Diseñé el loop principal, el generador de niveles y la curva de progresión.",
     },
     actions: [
       { label: { en: "Play", ru: "Играть", es: "Jugar" }, href: "https://ch33rs.itch.io/roll-the-luck-next-time", primary: true },
-      { label: { en: "Git", ru: "Git", es: "Git" }, href: "#", arrow: true },
+      { label: { en: "Git", ru: "Git", es: "Git" }, href: "https://github.com/ch33rsl0v3/RTLNT", arrow: true },
       {
         label: { en: "DOC", ru: "DOC", es: "DOC" },
         href: "https://docs.google.com/document/d/17oyeH3imldELEgknJGIvGNp7SO51-JLQJsSaMBTylEA/edit?usp=sharing",
@@ -49,7 +48,7 @@ export const projects: Project[] = [
     id: "twt",
     title: "TwT",
     video: "vid02.mp4",
-    tag: { en: "Team of 2 · 3 months", ru: "Соло · 14 дней", es: "Solo · 14 días" },
+    tag: { en: "Team of 2 · 3 months", ru: "Команда из 2 · 3 месяца", es: "Equipo de 2 · 3 meses" },
     ascii: `  ┌─────────┐
   │  ╱╲ ╱╲  │
   │ ╱  ╳  ╲ │
@@ -69,7 +68,7 @@ export const projects: Project[] = [
     },
     actions: [
       { label: { en: "Play", ru: "Играть", es: "Jugar" }, href: "https://ch33rs.itch.io/twt", primary: true },
-      { label: { en: "Git", ru: "Git", es: "Git" }, href: "#", arrow: true },
+      { label: { en: "Git", ru: "Git", es: "Git" }, href: "https://github.com/3303AJFA/TwT", arrow: true },
       {
         label: { en: "DOC", ru: "DOC", es: "DOC" },
         href: "https://docs.google.com/document/d/147rXtd2zQIqs6l-NS7G5kbPCuRCZ8fQ0jnLNrcHyWiE/edit?usp=sharing",

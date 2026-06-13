@@ -10,14 +10,14 @@ export const hero: HeroContent = {
     es: "Todo hombre se sacrifica por sus ambiciones",
   },
   role: {
-    en: "**Game Producer & Game Designer** with 2+ years shipping live titles end-to-end. Experienced in driving retention through data-informed design, managing a cross-functional team of 9, and running live ops at scale.",
-    ru: "**Геймпродюсер и геймдизайнер** с опытом 2+ года: запускаю живые тайтлы от концепта до пострелизной поддержки. Гоняю ретеншн через дата-информированный дизайн, веду кросс-функциональную команду из 9 человек и запускаю live ops на масштабе.",
-    es: "**Productor y diseñador de videojuegos** con más de 2 años lanzando títulos en vivo de principio a fin. Mejoro retención mediante diseño basado en datos, lidero un equipo multidisciplinario de 9 personas y opero live ops a escala.",
+    en: "**Game Producer & Game Designer** with 3+ years shipping live titles end-to-end. Experienced in driving retention through data-informed design, managing a cross-functional team of 9, and running live ops at scale.",
+    ru: "**Геймпродюсер и геймдизайнер** с опытом 3+ года: запускаю живые тайтлы от концепта до пострелизной поддержки. Гоняю ретеншн через дата-информированный дизайн, веду кросс-функциональную команду из 9 человек и запускаю live ops на масштабе.",
+    es: "**Productor y diseñador de videojuegos** con más de 3 años lanzando títulos en vivo de principio a fin. Mejoro retención mediante diseño basado en datos, lidero un equipo multidisciplinario de 9 personas y opero live ops a escala.",
   },
   stats: [
     {
       label: { en: "Years developing", ru: "Лет в разработке", es: "Años de desarrollo" },
-      value: { en: "2", ru: "2", es: "2" },
+      value: { en: "3", ru: "3", es: "3" },
       sup: "+",
       sub: { en: "games & features", ru: "игры и фичи", es: "juegos y funciones" },
     },

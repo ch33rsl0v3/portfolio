@@ -3,11 +3,13 @@ import { asset } from "@/lib/asset"
 import { tc } from "@/lib/tc"
 import { useLang } from "@/lib/useLang"
 import { useSpotlight } from "@/lib/useSpotlight"
+import { useInViewVideo } from "@/lib/useInViewVideo"
 import type { Project } from "@/content/types"
 
 export function ProjectCard({ project }: { project: Project }) {
   useLang() // subscribe to language changes
   const spot = useSpotlight()
+  const videoRef = useInViewVideo() // play only while on-screen + tab visible
 
   return (
     <article
@@ -43,13 +45,13 @@ export function ProjectCard({ project }: { project: Project }) {
 
         {project.video && (
           <video
+            ref={videoRef}
             className="pointer-events-none absolute inset-0 z-[1] h-full w-full object-cover opacity-100 transition-opacity duration-[400ms] group-hover:opacity-0"
             src={asset(project.video)}
-            autoPlay
             muted
             loop
             playsInline
-            preload="auto"
+            preload="metadata"
           />
         )}
       </div>

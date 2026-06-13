@@ -9,7 +9,7 @@ export const about: AboutContent = {
     es: "Siempre quise hacer videojuegos. Empecé programando y aprendí modelado 3D. Pero todo eso palidece frente al diseño de juegos. Es mi pasión. Como mi piano, mi guitarra eléctrica o los arándanos. Hice esta web yo mismo. Hay unos 10 Easter Eggs por aquí, y añadiré más con el tiempo. Y si quieres ver mi CV, adelante →",
   },
   resumeHref:
-    "https://docs.google.com/document/d/1-vEw6lXgDuWsLMdj-pzI27ahcbYDUmqzJdAtNpdpwYc/edit?usp=sharing",
+    "https://docs.google.com/document/d/1f7SaeS-YRutSJaUxv8jbrEf4m-yRJr6Q7o1MlCa4poU/edit?usp=sharing",
   headings: {
     skills: {
       en: "HARD SKILLS & SOFTWARE",
@@ -39,7 +39,7 @@ export const about: AboutContent = {
   favorites: [
     { name: "Baldur’s Gate 3", level: "AA" },
     { name: "The Binding of Isaac", level: "300+ h" },
-    { name: "Sekiro: Shadow Die Twice", level: "AA" },
+    { name: "Sekiro: Shadows Die Twice", level: "AA" },
     { name: "Resident Evil Series", level: "110+ h" },
     { name: "Metal Gear Solid Series", level: "150+ h" },
   ],
