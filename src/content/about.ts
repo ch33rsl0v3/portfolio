@@ -8,12 +8,9 @@ export const about: AboutContent = {
     ru: "Я всегда хотел делать игры. Начинал с программирования, потом учился 3D-моделированию. Но всё это меркнет рядом с геймдизайном. Это моя страсть. Как моё пианино, электрогитара или черника. Этот сайт я сделал сам. Тут около 10 пасхалок, и я буду добавлять ещё по ходу разработки. А если хочешь посмотреть резюме — велкам →",
     es: "Siempre quise hacer videojuegos. Empecé programando y aprendí modelado 3D. Pero todo eso palidece frente al diseño de juegos. Es mi pasión. Como mi piano, mi guitarra eléctrica o los arándanos. Hice esta web yo mismo. Hay unos 10 Easter Eggs por aquí, y añadiré más con el tiempo. Y si quieres ver mi CV, adelante →",
   },
-  // one-page PDFs built from resume/resume_{en,ru}.html (resume/build.sh); Spanish page gets the English one
-  resumeHref: {
-    en: `${import.meta.env.BASE_URL}resume_en.pdf`,
-    ru: `${import.meta.env.BASE_URL}resume_ru.pdf`,
-    es: `${import.meta.env.BASE_URL}resume_en.pdf`,
-  },
+  // the live CV is the Notion page (user, 2026-10-27); PDFs for application forms stay at
+  // /portfolio/resume_{en,ru}.pdf (resume/build.sh) and are linked from that page
+  resumeHref: "https://app.notion.com/p/Mark-Redfield-CV-a95ce3d833fd83f9b3140137e2564957",
   headings: {
     skills: {
       en: "HARD SKILLS & SOFTWARE",
