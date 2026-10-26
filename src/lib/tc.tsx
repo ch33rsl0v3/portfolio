@@ -1,16 +1,11 @@
 import { Fragment, type ReactNode } from "react"
-import i18n from "@/lib/i18n"
-import type { Lang, Localized } from "@/content/types"
+import { getLang } from "@/lib/i18n"
+import type { Text } from "@/content/types"
 
-function currentLang(): Lang {
-  const l = (i18n.language || "en").slice(0, 2)
-  return (l === "ru" || l === "es" ? l : "en") as Lang
-}
-
-/** Resolve a Localized string for the active language, falling back to en. */
-export function tc(field: Localized): string {
-  const lang = currentLang()
-  return field[lang] ?? field.en
+/** Resolve a Text for the active language: plain strings pass through, Localized falls back to en. */
+export function tc(field: Text): string {
+  if (typeof field === "string") return field
+  return field[getLang()] ?? field.en
 }
 
 // inline **bold** -> <strong>
@@ -31,7 +26,7 @@ function parseBold(line: string, keyBase: string): ReactNode[] {
  * Like tc(), but returns ReactNode and renders lightweight markup:
  *   **bold** -> <strong>, \n -> <br>.
  */
-export function rich(field: Localized): ReactNode {
+export function rich(field: Text): ReactNode {
   const text = tc(field)
   const lines = text.split("\n")
   return lines.map((line, li) => (

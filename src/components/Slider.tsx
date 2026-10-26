@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useRef, useState, type ReactNode } from "react"
 import { cn } from "@/lib/utils"
+import { ui } from "@/content/ui"
+import { tc } from "@/lib/tc"
 
 const AUTOPLAY_MS = 4500 // how often to advance during autoplay
 const RESUME_AFTER_MANUAL_MS = 8000 // how long autoplay stays paused after a click
@@ -46,7 +48,9 @@ export function Slider({ title, cardCount, children, className }: SliderProps) {
     }
     const step = cardStep()
     if (step <= 0) return
-    const cur = Math.round(track.scrollLeft / step) + 1
+    // at the far end several cards are visible at once — count it as the last
+    const atEnd = track.scrollLeft >= track.scrollWidth - track.clientWidth - 5
+    const cur = atEnd ? cardCount : Math.round(track.scrollLeft / step) + 1
     setCounter(`${cur} / ${cardCount}`)
   }, [cardStep, cardCount])
 
@@ -122,7 +126,7 @@ export function Slider({ title, cardCount, children, className }: SliderProps) {
             <div className="flex gap-2">
               <button
                 type="button"
-                aria-label="Previous"
+                aria-label={tc(ui.aria.prev)}
                 onClick={() => manual(-1)}
                 className="inline-flex h-7 w-7 items-center justify-center border border-line-bright font-display text-lg leading-none text-ink transition-colors hover:border-eva-purple hover:bg-eva-purple hover:text-bg"
               >
@@ -130,7 +134,7 @@ export function Slider({ title, cardCount, children, className }: SliderProps) {
               </button>
               <button
                 type="button"
-                aria-label="Next"
+                aria-label={tc(ui.aria.next)}
                 onClick={() => manual(1)}
                 className="inline-flex h-7 w-7 items-center justify-center border border-line-bright font-display text-lg leading-none text-ink transition-colors hover:border-eva-purple hover:bg-eva-purple hover:text-bg"
               >

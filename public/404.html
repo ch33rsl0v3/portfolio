@@ -6,19 +6,21 @@
   automatically serves this file. Resident Evil tribute: big red
   "YOU ARE DEAD" with a return-home button.
 
-  Keep this file in the repo ROOT (next to index.html). GitHub Pages
-  picks it up automatically — no config needed.
+  Lives in public/, so Vite copies it to the root of dist/ where GitHub
+  Pages picks it up automatically. It can be served at ANY depth
+  (/portfolio/a/b/c), so every URL in here is absolute (/portfolio/...).
+  Text follows the site's language choice (localStorage "ch33rsl0v3.lang").
 -->
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>404 · YOU ARE DEAD</title>
-<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="icon" type="image/x-icon" href="/portfolio/favicon.ico">
 <meta name="robots" content="noindex">
 
 <!-- Same fonts as the main site, so the 404 feels like part of the same world -->
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Tektur:wght@400;500;700;900&family=VT323&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Tektur:wght@400;500;700;900&display=swap" rel="stylesheet">
 
 <style>
 :root {
@@ -34,7 +36,6 @@
   --border:    #2d1f4a;
   --font-display: 'Tektur', system-ui, sans-serif;
   --font-mono:    'JetBrains Mono', 'Courier New', monospace;
-  --font-pixel:   'VT323', monospace;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -55,7 +56,7 @@ html, body {
 body::before {
   content: '';
   position: fixed; inset: 0;
-  background-image: url('images/bg.jpg');
+  background-image: url('/portfolio/images/bg.webp');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -231,21 +232,59 @@ main {
   </h1>
 
   <div class="sub">
-    <p>The page you tried to load doesn't exist on this server.</p>
-    <p style="color: var(--ink-mute); font-size: 12px;">Possibly: an old URL, a typo, or a save file that was never written.</p>
+    <p data-t="sub1">The page you tried to load doesn't exist on this server.</p>
+    <p data-t="sub2" style="color: var(--ink-mute); font-size: 12px;">Possibly: an old URL, a typo, or a save file that was never written.</p>
   </div>
 
   <div class="meta-grid" aria-hidden="true">
-    <div class="row"><span>status</span><b style="color: var(--eva-red);">DEAD</b></div>
-    <div class="row"><span>cause</span><b>404 NOT FOUND</b></div>
-    <div class="row"><span>respawn</span><b>available</b></div>
+    <div class="row"><span data-t="status">status</span><b style="color: var(--eva-red);">DEAD</b></div>
+    <div class="row"><span data-t="cause">cause</span><b>404 NOT FOUND</b></div>
+    <div class="row"><span data-t="respawn">respawn</span><b data-t="available">available</b></div>
   </div>
 
-  <a href="/portfolio/" class="btn">Continue · Return home</a>
+  <a href="/portfolio/" class="btn" data-t="btn">Continue · Return home</a>
 
 </main>
 
 <script>
+/* ============================================================================
+   Language: same choice as the main site (saved key → browser → English).
+   "YOU ARE DEAD" stays English in every language — it's the quote.
+   ============================================================================ */
+(function () {
+  var T = {
+    ru: {
+      sub1: 'Страницы, которую ты пытался открыть, на этом сервере нет.',
+      sub2: 'Возможно: старая ссылка, опечатка или сейв, который так и не записался.',
+      status: 'статус', cause: 'причина', respawn: 'респаун', available: 'доступен',
+      btn: 'Continue · На главную'
+    },
+    es: {
+      sub1: 'La página que intentaste abrir no existe en este servidor.',
+      sub2: 'Quizá: un enlace viejo, una errata o una partida que nunca se guardó.',
+      status: 'estado', cause: 'causa', respawn: 'reaparición', available: 'disponible',
+      btn: 'Continue · Volver al inicio'
+    }
+  };
+  var lang = null;
+  try { lang = localStorage.getItem('ch33rsl0v3.lang'); } catch (e) {}
+  if (!T[lang] && lang !== 'en') {
+    lang = null;
+    var langs = navigator.languages || [navigator.language];
+    for (var i = 0; i < langs.length && !lang; i++) {
+      var s = (langs[i] || '').slice(0, 2).toLowerCase();
+      if (T[s] || s === 'en') lang = s;
+    }
+  }
+  if (!T[lang]) return;
+  document.documentElement.lang = lang;
+  var nodes = document.querySelectorAll('[data-t]');
+  for (var j = 0; j < nodes.length; j++) {
+    var v = T[lang][nodes[j].getAttribute('data-t')];
+    if (v) nodes[j].textContent = v;
+  }
+})();
+
 /* ============================================================================
    Tiny touch: pressing any key acts like the Resident Evil "press to continue"
    prompt and sends the visitor back to the home page.

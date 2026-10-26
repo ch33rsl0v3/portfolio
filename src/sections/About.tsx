@@ -2,13 +2,10 @@ import { Wrap } from "@/components/Wrap"
 import { Reveal } from "@/components/Reveal"
 import { SectionHead } from "@/components/SectionHead"
 import { Btn } from "@/components/Btn"
-import { Slider } from "@/components/Slider"
-import { AchievementCard } from "@/components/AchievementCard"
 import { about } from "@/content/about"
 import { achievements } from "@/content/achievements"
 import { sectionHeads, ui } from "@/content/ui"
 import { tc, rich } from "@/lib/tc"
-import { useLang } from "@/lib/useLang"
 
 function SideList({ heading, rows }: { heading: string; rows: { name: string; level: string }[] }) {
   return (
@@ -32,8 +29,6 @@ function SideList({ heading, rows }: { heading: string; rows: { name: string; le
 }
 
 export function About() {
-  useLang()
-
   return (
     <section id="about" className="bg-pattern border-b border-line py-20">
       <Wrap>
@@ -43,7 +38,7 @@ export function About() {
             <div className="text-[17px] leading-[1.9] text-ink-dim">
             <p className="mb-5">{rich(about.bio)}</p>
             <p className="mt-8">
-              <Btn href={about.resumeHref} primary arrow external>
+              <Btn href={tc(about.resumeHref)} primary arrow external>
                 {tc(ui.buttons.resume)}
               </Btn>
             </p>
@@ -56,15 +51,12 @@ export function About() {
               rows={about.languages.map((l) => ({ name: tc(l.name), level: l.level }))}
             />
             <SideList heading={tc(about.headings.favorites)} rows={about.favorites} />
+            {/* the trophy slider took a whole screen — folded into one list (2026-10-27) */}
+            <SideList
+              heading={tc(ui.achievements)}
+              rows={achievements.map((a) => ({ name: a.title.replace(/^\[\s*|\s*\]$/g, ""), level: a.tag }))}
+            />
           </aside>
-        </Reveal>
-
-        <Reveal>
-          <Slider title={tc(ui.achievements)} cardCount={achievements.length}>
-            {achievements.map((a) => (
-              <AchievementCard key={a.id} achievement={a} />
-            ))}
-          </Slider>
         </Reveal>
       </Wrap>
     </section>

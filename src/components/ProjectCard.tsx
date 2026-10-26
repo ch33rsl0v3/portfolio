@@ -1,13 +1,12 @@
 import { Btn } from "@/components/Btn"
 import { asset } from "@/lib/asset"
 import { tc } from "@/lib/tc"
-import { useLang } from "@/lib/useLang"
 import { useSpotlight } from "@/lib/useSpotlight"
 import { useInViewVideo } from "@/lib/useInViewVideo"
 import type { Project } from "@/content/types"
+import { ui } from "@/content/ui"
 
 export function ProjectCard({ project }: { project: Project }) {
-  useLang() // subscribe to language changes
   const spot = useSpotlight()
   const videoRef = useInViewVideo() // play only while on-screen + tab visible
 
@@ -61,11 +60,22 @@ export function ProjectCard({ project }: { project: Project }) {
         <div className="mb-4 text-[10px] uppercase tracking-[0.15em] text-ink-mute">{tc(project.role)}</div>
         <p className="mb-5 text-[13px] leading-[1.6] text-ink-dim">{tc(project.desc)}</p>
         <div className="mt-auto flex flex-wrap gap-3 text-[11px]">
-          {project.actions.map((a, i) => (
-            <Btn key={i} href={a.href} external primary={a.primary} arrow={a.arrow}>
-              {tc(a.label)}
-            </Btn>
-          ))}
+          {project.actions.map((a, i) =>
+            a.href ? (
+              <Btn key={i} href={a.href} external primary={a.primary} arrow={a.arrow}>
+                {tc(a.label)}
+              </Btn>
+            ) : (
+              // no link yet = a muted «soon» tag, not a dead button
+              <span
+                key={i}
+                aria-disabled="true"
+                className="inline-flex cursor-default items-center gap-2 border border-dashed border-line px-[18px] py-[10px] font-mono text-xs uppercase tracking-[0.1em] text-ink-mute"
+              >
+                {tc(a.label)} · {tc(ui.buttons.soon)}
+              </span>
+            ),
+          )}
         </div>
       </div>
     </article>

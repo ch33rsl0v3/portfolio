@@ -1,11 +1,9 @@
 import { asset } from "@/lib/asset"
 import { tc } from "@/lib/tc"
-import { useLang } from "@/lib/useLang"
 import { useSpotlight } from "@/lib/useSpotlight"
 import type { Achievement } from "@/content/types"
 
 export function AchievementCard({ achievement }: { achievement: Achievement }) {
-  useLang() // subscribe to language changes
   const spot = useSpotlight()
   return (
     <article

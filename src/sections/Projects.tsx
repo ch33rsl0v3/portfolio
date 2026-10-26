@@ -5,9 +5,8 @@ import { SectionHead } from "@/components/SectionHead"
 import { ProjectCard } from "@/components/ProjectCard"
 import { Icon } from "@/components/Icons"
 import { projects } from "@/content/projects"
-import { sectionHeads } from "@/content/ui"
+import { sectionHeads, ui } from "@/content/ui"
 import { tc } from "@/lib/tc"
-import { useLang } from "@/lib/useLang"
 
 const PER_PAGE = 4
 
@@ -18,8 +17,6 @@ for (let i = 0; i < projects.length; i += PER_PAGE) {
 }
 
 export function Projects() {
-  useLang()
-
   const totalPages = pages.length
   const [page, setPage] = useState(0)
   const [dir, setDir] = useState(0) // 1 = next, -1 = prev
@@ -69,7 +66,7 @@ export function Projects() {
               type="button"
               onClick={() => go(page - 1)}
               disabled={page === 0}
-              aria-label="Previous projects"
+              aria-label={tc(ui.aria.prevProjects)}
               className="inline-flex items-center text-ink-dim outline-none transition-colors hover:text-eva-purple focus-visible:text-eva-purple hover:[filter:drop-shadow(0_0_5px_currentColor)] disabled:pointer-events-none disabled:opacity-25"
             >
               <Icon name="arrow" className="h-4 w-4 rotate-180" />
@@ -85,7 +82,7 @@ export function Projects() {
               type="button"
               onClick={() => go(page + 1)}
               disabled={page === totalPages - 1}
-              aria-label="Next projects"
+              aria-label={tc(ui.aria.nextProjects)}
               className="inline-flex items-center text-ink-dim outline-none transition-colors hover:text-eva-purple focus-visible:text-eva-purple hover:[filter:drop-shadow(0_0_5px_currentColor)] disabled:pointer-events-none disabled:opacity-25"
             >
               <Icon name="arrow" className="h-4 w-4" />

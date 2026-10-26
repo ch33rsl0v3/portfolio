@@ -5,10 +5,8 @@ import { ArtworkItem } from "@/components/ArtworkItem"
 import { artworks } from "@/content/artworks"
 import { sectionHeads } from "@/content/ui"
 import { tc } from "@/lib/tc"
-import { useLang } from "@/lib/useLang"
 
 export function Artworks() {
-  useLang()
   return (
     <section id="artworks" className="bg-pattern border-b border-line py-20">
       <Wrap>

@@ -5,10 +5,8 @@ import { ContractCard } from "@/components/ContractCard"
 import { contracts } from "@/content/contracts"
 import { sectionHeads } from "@/content/ui"
 import { tc } from "@/lib/tc"
-import { useLang } from "@/lib/useLang"
 
 export function Experience() {
-  useLang()
   return (
     <section id="experience" className="bg-pattern border-b border-line py-20">
       <Wrap>

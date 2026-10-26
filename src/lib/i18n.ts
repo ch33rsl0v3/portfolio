@@ -1,29 +1,51 @@
-import i18n from "i18next"
-import { initReactI18next } from "react-i18next"
-import LanguageDetector from "i18next-browser-languagedetector"
+import { LANGS, type Lang } from "@/content/types"
 
-// i18next is used ONLY as a reactive language engine now — translations live in
-// src/content/* as Localized objects, resolved by tc()/rich(). No resources.
-export const LANGS = ["en", "ru", "es"] as const
-export type Lang = (typeof LANGS)[number]
+// Tiny language store — replaces i18next, which was only ever used as an
+// event emitter (all translations live in src/content/*). Detection order:
+// saved choice (localStorage) → browser languages → "en".
+export { LANGS, type Lang }
 
 const LANG_STORAGE_KEY = "ch33rsl0v3.lang"
 
-i18n
-  .use(LanguageDetector)
-  .use(initReactI18next)
-  .init({
-    // empty bag — content is not stored in i18next
-    resources: { en: {}, ru: {}, es: {} },
-    supportedLngs: [...LANGS],
-    fallbackLng: "en",
-    load: "languageOnly", // "en-US" -> "en"
-    interpolation: { escapeValue: false },
-    detection: {
-      order: ["localStorage", "navigator"],
-      lookupLocalStorage: LANG_STORAGE_KEY,
-      caches: ["localStorage"],
-    },
-  })
+const isLang = (v: unknown): v is Lang => LANGS.includes(v as Lang)
 
-export default i18n
+function detect(): Lang {
+  try {
+    const saved = localStorage.getItem(LANG_STORAGE_KEY)
+    if (isLang(saved)) return saved
+  } catch {
+    // storage blocked (private mode etc.) — fall through to the browser
+  }
+  const browser = navigator.languages?.length ? navigator.languages : [navigator.language]
+  for (const l of browser) {
+    const short = l?.slice(0, 2).toLowerCase()
+    if (isLang(short)) return short
+  }
+  return "en"
+}
+
+let current: Lang = detect()
+const listeners = new Set<() => void>()
+
+document.documentElement.lang = current
+
+export const getLang = () => current
+
+export function setLang(lang: Lang) {
+  if (lang === current) return
+  current = lang
+  try {
+    localStorage.setItem(LANG_STORAGE_KEY, lang)
+  } catch {
+    // not persisted — still switches for this visit
+  }
+  document.documentElement.lang = lang
+  listeners.forEach((fn) => fn())
+}
+
+export function subscribeLang(fn: () => void) {
+  listeners.add(fn)
+  return () => {
+    listeners.delete(fn)
+  }
+}

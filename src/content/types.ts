@@ -1,14 +1,22 @@
 // ============================================================================
-// Content model. Every translatable string is a `Localized` object so all three
+// Content model. Every translatable string is a `Localized` object so all
 // languages for one entry live side by side and are edited in one place.
+// Text that reads the same in every language (brand names, numbers, "Git")
+// is a plain string — `Text` accepts both, tc()/rich() resolve either.
 // Rich strings use **bold** and \n (newline) markup — rendered via rich().
 // Media is stored as a bare FILENAME (e.g. "prj01.jpg", "vid01.mp4"); the
 // asset() helper resolves it to /images/... or /videos/... under the base path.
 // ============================================================================
 
-export type Lang = "en" | "ru" | "es"
+// THE list of site languages. Adding one = add it here, then TypeScript points
+// at every Localized object that is missing it.
+export const LANGS = ["en", "ru", "es"] as const
+export type Lang = (typeof LANGS)[number]
 
 export type Localized = Record<Lang, string>
+
+// Translated (Localized) or the same in every language (string).
+export type Text = string | Localized
 
 // ---- Icons -----------------------------------------------------------------
 export type IconName =
@@ -23,10 +31,10 @@ export type IconName =
 
 // ---- Hero ------------------------------------------------------------------
 export interface Stat {
-  label: Localized
-  value: Localized
+  label: Text
+  value: Text
   sup?: string // small superscript like "+"
-  sub: Localized
+  sub: Text
 }
 
 export interface HeroContent {
@@ -55,7 +63,7 @@ export interface ContractMetric {
 }
 
 export interface ContractAction {
-  label: Localized
+  label: Text
   href: string
   primary?: boolean
 }
@@ -71,18 +79,18 @@ export interface Contract {
   terms: Localized[]
   metrics: ContractMetric[]
   projects: ContractProject[]
-  // Director's-note commentary (Konami easter egg). English-only in legacy.
-  commentary?: string
+  // Director's-note commentary (Konami easter egg).
+  commentary?: Text
   actions: ContractAction[]
   seal: Localized
 }
 
 // ---- Personal projects -----------------------------------------------------
 export interface ProjectAction {
-  label: Localized
-  href: string
+  label: Text
+  href?: string // no href = button is hidden (e.g. a build that isn't public yet)
   primary?: boolean // зелёная кнопка (Play)
-  arrow?: boolean // со стрелкой (Git, GDD)
+  arrow?: boolean // со стрелкой (Git, DOC)
 }
 
 export interface Project {
@@ -103,8 +111,8 @@ export interface Artwork {
   id: string
   kind: "image" | "archive"
   href: string
-  title: Localized // literal titles are replicated across languages
-  caption: Localized
+  title: Text
+  caption: Text
   image?: string
   placeholder?: Localized // archive card block (rich, with \n)
 }
@@ -125,13 +133,13 @@ export interface SkillRow {
 }
 
 export interface LanguageRow {
-  name: Localized
+  name: Text
   level: string
 }
 
 export interface AboutContent {
   bio: Localized // rich (long text)
-  resumeHref: string
+  resumeHref: Text // per language: RU page → Russian PDF
   headings: {
     skills: Localized
     languages: Localized
@@ -151,10 +159,9 @@ export interface Social {
 
 export interface ContactRow {
   icon: IconName | "dot"
-  label: Localized
-  value: string
+  label: Text
+  value: Text
   href?: string
-  valueLocalized?: Localized // used by the Location row
 }
 
 // ---- UI chrome -------------------------------------------------------------

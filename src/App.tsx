@@ -7,8 +7,13 @@ import { Artworks } from "@/sections/Artworks"
 import { About } from "@/sections/About"
 import { Contact } from "@/sections/Contact"
 import { Footer } from "@/sections/Footer"
+import { useLang } from "@/lib/useLang"
 
 export default function App() {
+  // The one language subscription: switching language re-renders App and,
+  // through it, every section — tc()/rich() then read the new language.
+  useLang()
+
   return (
     <>
       <Nav />

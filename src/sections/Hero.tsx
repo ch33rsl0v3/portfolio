@@ -2,11 +2,8 @@ import { Wrap } from "@/components/Wrap"
 import { GlitchName } from "@/components/GlitchName"
 import { hero } from "@/content/hero"
 import { tc, rich } from "@/lib/tc"
-import { useLang } from "@/lib/useLang"
 
 export function Hero() {
-  useLang() // subscribe to language changes
-
   return (
     <section className="bg-pattern relative border-b border-line py-28 pb-20 max-[800px]:py-16 max-[800px]:pb-12">
       <Wrap>

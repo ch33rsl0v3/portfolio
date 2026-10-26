@@ -4,7 +4,6 @@ import { Slider } from "@/components/Slider"
 import { ui } from "@/content/ui"
 import type { Contract, ContractProject } from "@/content/types"
 import { tc, rich } from "@/lib/tc"
-import { useLang } from "@/lib/useLang"
 import { useSpotlight } from "@/lib/useSpotlight"
 
 function ProjectCard({ project }: { project: ContractProject }) {
@@ -35,7 +34,6 @@ function ProjectCard({ project }: { project: ContractProject }) {
 }
 
 export function ContractCard({ contract }: { contract: Contract }) {
-  useLang() // subscribe to language changes
   const spot = useSpotlight()
   const active = contract.status === "active"
 
@@ -108,7 +106,12 @@ export function ContractCard({ contract }: { contract: Contract }) {
           </Slider>
         )}
 
-        {contract.commentary && <div className="commentary">{contract.commentary}</div>}
+        {contract.commentary && (
+          <div className="commentary">
+            <span className="font-medium uppercase text-ink-mute">{tc(ui.directorsNote)} :: </span>
+            {tc(contract.commentary)}
+          </div>
+        )}
 
         <div className="mt-6 flex flex-wrap gap-3">
           {contract.actions.map((a, i) => (

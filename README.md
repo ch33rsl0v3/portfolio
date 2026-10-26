@@ -14,9 +14,8 @@ truth for content, palette, and copy.
 - **Tailwind CSS v4** (CSS-first — theme tokens live in [`src/index.css`](src/index.css) via `@theme`)
 - **shadcn/ui** (new-york style, Tailwind v4) with the `@/...` alias, so
   [21st.dev](https://21st.dev) components drop in without edits
-- **i18next** + **react-i18next** + **language-detector** used purely as the
-  reactive **language engine** (EN / RU / ES) — the actual translations live in
-  `src/content/` as objects, not in i18next resource bundles
+- **EN / RU / ES** via a ~50-line language store ([`src/lib/i18n.ts`](src/lib/i18n.ts),
+  no i18n library) — the translations themselves live in `src/content/`
 
 ## Develop
 
@@ -54,7 +53,7 @@ portfolio/
 │  │                        # Slider, Btn, Icons, Reveal, Wrap
 │  ├─ sections/             # Hero, Experience, Projects, Artworks,
 │  │                        # About, Contact, Footer
-│  └─ lib/                  # i18n engine, tc/rich, asset, useLang, cn
+│  └─ lib/                  # language store, tc/rich, asset, useLang, cn
 └─ .github/workflows/deploy.yml
 ```
 
@@ -71,33 +70,45 @@ contract (overflow detection, arrows, autoplay, hover/focus/hidden-tab pause,
 together, so each entry is edited in one place with all three languages side by
 side. There are no translation JSON files.
 
-A translatable string is a `Localized` object:
+The language list is declared **once** — `LANGS` in
+[`content/types.ts`](src/content/types.ts). Add a language there and
+TypeScript flags every `Localized` object that is missing it.
 
 ```ts
-type Localized = { en: string; ru: string; es: string }
+type Localized = Record<Lang, string>   // { en, ru, es } — translated text
+type Text = string | Localized          // plain string = same in every language
 ```
+
+Use a plain string for anything that reads the same everywhere (brand names,
+numbers, "Git", artwork titles) — don't copy it three times. UI chrome that
+isn't a content entry (buttons, aria-labels, menu, "view ↗", director's note
+label, marquee) lives in [`content/ui.ts`](src/content/ui.ts) — components
+hold no user-facing strings of their own.
 
 Helpers in [`src/lib/`](src/lib/):
 
-- **`tc(field)`** — returns the string for the active language (falls back to `en`).
+- **`tc(field)`** — returns the string for the active language (plain strings
+  pass through; `Localized` falls back to `en`).
 - **`rich(field)`** — like `tc`, but returns React nodes and renders light markup:
   `**bold**` → `<strong>`, `\n` → `<br>`. Use it for the hero role, contract
   dates, the contact heading, etc.
 - **`asset(name)`** — resolves a bare media **filename** to a URL under the base
   path: video extensions → `/videos/`, everything else → `/images/`. Store media
   as just `"prj01.jpg"` / `"vid01.mp4"` in content.
-- **`useLang()`** — `{ lang, setLang, langs }` over i18next. Any component that
-  renders content calls it so it **re-renders on language change** (that's what
-  makes `tc`/`rich` reactive). The EN/RU/ES switcher uses it too.
+- **`useLang()`** — `{ lang, setLang, langs }`. `App` calls it **once**: a
+  language change re-renders App and every section with it, so components
+  don't subscribe themselves. Only `LangSwitch` uses it directly.
 
-`@/lib/i18n` initialises i18next as an **engine only** (detector order:
-`localStorage` key `ch33rsl0v3.lang` → `navigator`; default `en`; no resources).
+`@/lib/i18n` detects the language (`localStorage` key `ch33rsl0v3.lang` →
+browser languages → `en`), keeps `<html lang>` in sync and saves the choice.
+`public/404.html` reads the same key, so the 404 page follows the site language.
 
 ### Adding content
 
 - **A personal project** → append a `Project` to [`content/projects.ts`](src/content/projects.ts):
   give it `title`, localized `role`/`desc`, optional `cover`/`video` (filenames),
-  `tag`, `dice`, and `actions: [{ label, href }]`.
+  `tag`, `dice`, and `actions: [{ label, href }]`. An action without `href`
+  isn't rendered — use that for a build/doc that isn't public yet.
 - **An artwork** → append an `Artwork` to [`content/artworks.ts`](src/content/artworks.ts)
   (`kind: 'image'`, `image` filename, `href`, localized `title`/`caption`).
 - **An achievement** → append an `Achievement` to [`content/achievements.ts`](src/content/achievements.ts)
@@ -108,6 +119,9 @@ Helpers in [`src/lib/`](src/lib/):
 
 Drop the referenced image/video into [`public/images/`](public/images/) or
 [`public/videos/`](public/videos/) — the slider/overflow logic is automatic.
+Keep card videos small: they are 1280×720 muted loops, so re-encode without
+audio, e.g. `ffmpeg -i in.mp4 -an -c:v libx264 -preset slow -crf 28 -movflags +faststart out.mp4`
+(~1–3 MB instead of 10–20 MB).
 
 ## Deploy (GitHub Pages)
 
@@ -118,7 +132,8 @@ which builds and publishes `dist/` via the official Pages action
 **One-time setup:** in the repo, go to **Settings → Pages → Build and
 deployment → Source** and select **GitHub Actions**.
 
-`vite.config.ts` sets `base: '/portfolio/'` to match the Pages subpath.
+`vite.config.ts` sets `base: '/portfolio/'` to match the Pages subpath and
+injects the commit hash shown in the footer (`build a1b2c3d`).
 
 ## TODO — custom interactives to port (one at a time)
 
@@ -129,15 +144,17 @@ individually (most into `useEffect`/refs):
 - [ ] **Boot screen** — NERV-OS typing intro on first load (click/key to skip)
 - [ ] **Konami code** → toggles "director's commentary" mode (CSS + note text
       already wired via `.commentary` / `body.commentary-on`; just needs the key listener)
-- [ ] **Hero name glitch** — red CSM glitch on hover over the name
+- [x] **Hero name glitch** — red CSM glitch on hover over the name (`GlitchName`)
 - [ ] **Console** — `~` opens a fake terminal with commands (help, ls, whoami,
-      magi, contract, brand, secret, …)
+      magi, contract, brand, secret, …). When it lands, render the
+      `ui.contact.console` hint in Contact again (removed so it doesn't promise
+      a console that doesn't open).
 - [ ] **Custom dice cursor + trail** — SVG die that rolls through faces on hover,
       purple particle trail on canvas (hidden on touch / reduced-motion)
-- [ ] **Magnetic buttons** — `.btn` / social icons pull toward the cursor
-- [ ] **HUD bar** — bottom strip with live clock + random build hash + current section
+- [x] **Magnetic buttons** — `Btn` pulls toward the cursor (`useMagnetic`)
+- [ ] **HUD bar** — bottom strip with live clock + build hash (`__BUILD__`) + current section
 - [ ] **"3303" tooltip** — binary easter-egg on clicking the footer year
 - [ ] **Scroll-spy** — active nav link highlight tied to the section in view
 - [ ] **Artworks keyboard nav** — ← / → scroll the gallery when in view
-- [ ] **Offscreen video pause** — pause `.cover-video` when off-screen / tab hidden
-      (battery/CPU optimization; basic muted autoplay already works)
+- [x] **Offscreen video pause** — card videos play only on screen + tab visible
+      (`useInViewVideo`)

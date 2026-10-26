@@ -38,16 +38,31 @@ export const ui = {
 
   buttons: {
     play: { en: "Play", ru: "Играть", es: "Jugar" },
-    gdd: { en: "GDD", ru: "GDD", es: "GDD" },
     resume: { en: "Resume", ru: "Резюме", es: "CV" },
-    not: { en: "NOT", ru: "NOT", es: "NOT" },
-    yet: { en: "YET", ru: "YET", es: "YET" },
+    soon: { en: "soon", ru: "скоро", es: "pronto" },
   },
 
+  // mobile nav toggle (button text) + accessible names for icon-only controls
+  menu: {
+    open: { en: "Menu", ru: "Меню", es: "Menú" },
+    close: { en: "Close", ru: "Закрыть", es: "Cerrar" },
+  },
+  aria: {
+    language: { en: "Language", ru: "Язык", es: "Idioma" },
+    prev: { en: "Previous", ru: "Назад", es: "Anterior" },
+    next: { en: "Next", ru: "Вперёд", es: "Siguiente" },
+    prevProjects: { en: "Previous projects", ru: "Предыдущие проекты", es: "Proyectos anteriores" },
+    nextProjects: { en: "Next projects", ru: "Следующие проекты", es: "Proyectos siguientes" },
+  },
+
+  artworkView: { en: "view ↗", ru: "смотреть ↗", es: "ver ↗" },
+
+  directorsNote: { en: "Director's note", ru: "Заметка режиссёра", es: "Nota del director" },
+
   achievements: {
-    en: "Personal achievements",
-    ru: "Личные достижения",
-    es: "Logros personales",
+    en: "100% achievements",
+    ru: "100% достижений",
+    es: "100% de logros",
   },
 
   hud: {
@@ -67,11 +82,12 @@ export const ui = {
     // rich (contains \n)
     title: { en: "Write me\na letter.", ru: "Напиши мне\nписьмо.", es: "Escríbeme\nuna carta." },
     body: {
-      en: "Open to junior and middle roles. I also consider any interesting offers.",
-      ru: "Открыт к джуниор- и миддл-позициям. Также рассматриваю любые офферы.",
-      es: "Abierto a roles junior y middle. También considero otras ofertas.",
+      en: "Open to Producer, Senior Producer and Lead Game Designer roles — live-service and F2P, remote or relocation.",
+      ru: "Открыт к позициям Producer, Senior Producer и Lead Game Designer — live-service и F2P, удалённо или с релокацией.",
+      es: "Abierto a puestos de Producer, Senior Producer y Lead Game Designer — live-service y F2P, en remoto o con reubicación.",
     },
-    // the "~" inside is highlighted by the Contact component
+      // Not rendered until the ~ console interactive exists (README TODO) —
+    // the hint must not promise a console that doesn't open.
     console: {
       en: "Press ~ to talk to the console.",
       ru: "Нажми ~, чтобы открыть консоль.",
@@ -84,7 +100,7 @@ export const ui = {
 export const sectionHeads = {
   experience: {
     title: { en: "Experience · Contracts", ru: "Опыт · Контракты", es: "Experiencia · Contratos" },
-    subtitle: { en: "Signed in blood.", ru: "Подписано кровью.", es: "Firmado con sangre." },
+    subtitle: { en: "Shipped, run live, measured.", ru: "Выпущено, в live ops, в цифрах.", es: "Lanzado, en vivo, medido." },
   },
   projects: {
     title: { en: "Personal projects", ru: "Личные проекты", es: "Proyectos personales" },
@@ -97,12 +113,15 @@ export const sectionHeads = {
   about: {
     title: { en: "About", ru: "Обо мне", es: "Sobre mí" },
     subtitle: {
-      en: "Ch33rs's me, bro. Let me be me",
-      ru: "Ch33rs это я, бро. Дайте мне быть собой",
-      es: "Soy yo, Cody, bro. Déjenme ser yo mismo",
+      en: "Beyond the numbers.",
+      ru: "Помимо цифр.",
+      es: "Más allá de los números.",
     },
   },
 } satisfies Record<string, SectionHeading>
+
+// Section-divider ticker. Slogans, deliberately English in every language.
+export const marquee: string[] = ["RIP AND TEAR", "ch33rsl0v3", "UNTIL IT'S DONE"]
 
 // Boot-screen lines (NERV-OS intro). English-only, literal — for the deferred
 // boot-screen interactive (see README TODO).

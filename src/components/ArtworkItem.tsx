@@ -1,11 +1,10 @@
 import { asset } from "@/lib/asset"
 import { tc, rich } from "@/lib/tc"
-import { useLang } from "@/lib/useLang"
 import { useSpotlight } from "@/lib/useSpotlight"
 import type { Artwork } from "@/content/types"
+import { ui } from "@/content/ui"
 
 export function ArtworkItem({ art }: { art: Artwork }) {
-  useLang() // subscribe to language changes
   const spot = useSpotlight<HTMLAnchorElement>()
 
   return (
@@ -33,7 +32,7 @@ export function ArtworkItem({ art }: { art: Artwork }) {
               className="pointer-events-none absolute inset-x-0 bottom-0 flex items-end justify-end p-3 opacity-0 transition-opacity duration-300 group-hover:opacity-100 [background:linear-gradient(to_top,rgba(0,0,0,0.7),transparent)]"
             >
               <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-eva-green [filter:drop-shadow(0_0_4px_currentColor)]">
-                view ↗
+                {tc(ui.artworkView)}
               </span>
             </div>
           </>

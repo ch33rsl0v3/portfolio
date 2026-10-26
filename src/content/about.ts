@@ -8,8 +8,12 @@ export const about: AboutContent = {
     ru: "Я всегда хотел делать игры. Начинал с программирования, потом учился 3D-моделированию. Но всё это меркнет рядом с геймдизайном. Это моя страсть. Как моё пианино, электрогитара или черника. Этот сайт я сделал сам. Тут около 10 пасхалок, и я буду добавлять ещё по ходу разработки. А если хочешь посмотреть резюме — велкам →",
     es: "Siempre quise hacer videojuegos. Empecé programando y aprendí modelado 3D. Pero todo eso palidece frente al diseño de juegos. Es mi pasión. Como mi piano, mi guitarra eléctrica o los arándanos. Hice esta web yo mismo. Hay unos 10 Easter Eggs por aquí, y añadiré más con el tiempo. Y si quieres ver mi CV, adelante →",
   },
-  resumeHref:
-    "https://docs.google.com/document/d/1f7SaeS-YRutSJaUxv8jbrEf4m-yRJr6Q7o1MlCa4poU/edit?usp=sharing",
+  // one-page PDFs built from resume/resume_{en,ru}.html (resume/build.sh); Spanish page gets the English one
+  resumeHref: {
+    en: `${import.meta.env.BASE_URL}resume_en.pdf`,
+    ru: `${import.meta.env.BASE_URL}resume_ru.pdf`,
+    es: `${import.meta.env.BASE_URL}resume_en.pdf`,
+  },
   headings: {
     skills: {
       en: "HARD SKILLS & SOFTWARE",

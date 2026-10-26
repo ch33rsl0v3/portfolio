@@ -1,16 +1,13 @@
-import { useTranslation } from "react-i18next"
-import { LANGS, type Lang } from "@/lib/i18n"
+import { useSyncExternalStore } from "react"
+import { LANGS, getLang, setLang, subscribeLang } from "@/lib/i18n"
 
 /**
- * Language hook over i18next. Subscribing via useTranslation() makes any
- * component using it (and thus tc()/rich()) re-render on language change.
+ * Active language + setter. App calls it once at the root: a language change
+ * re-renders App, and with it every section (none are memoized), so tc()/rich()
+ * pick up the new language everywhere. Other components only need it to READ
+ * or SET the language (e.g. LangSwitch) — not to stay reactive.
  */
 export function useLang() {
-  const { i18n } = useTranslation()
-  const lang = ((i18n.resolvedLanguage || i18n.language || "en").slice(0, 2) || "en") as Lang
-  return {
-    lang,
-    setLang: (l: Lang) => i18n.changeLanguage(l),
-    langs: LANGS,
-  }
+  const lang = useSyncExternalStore(subscribeLang, getLang, getLang)
+  return { lang, setLang, langs: LANGS }
 }

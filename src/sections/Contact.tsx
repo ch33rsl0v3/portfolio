@@ -1,30 +1,11 @@
-import { Fragment } from "react"
 import { Wrap } from "@/components/Wrap"
 import { Reveal } from "@/components/Reveal"
 import { Icon } from "@/components/Icons"
 import { contactRows } from "@/content/socials"
 import { ui } from "@/content/ui"
 import { tc, rich } from "@/lib/tc"
-import { useLang } from "@/lib/useLang"
-
-// Render the console hint, highlighting the "~" key in eva-purple.
-function ConsoleHint({ text }: { text: string }) {
-  const parts = text.split("~")
-  return (
-    <>
-      {parts.map((part, i) => (
-        <Fragment key={i}>
-          {i > 0 && <span className="text-eva-purple">~</span>}
-          {part}
-        </Fragment>
-      ))}
-    </>
-  )
-}
 
 export function Contact() {
-  useLang()
-
   return (
     <section id="contact" className="bg-pattern border-b border-line py-20">
       <Wrap>
@@ -34,9 +15,7 @@ export function Contact() {
               {rich(ui.contact.title)}
             </h2>
             <p className="mb-8 text-ink-dim">{tc(ui.contact.body)}</p>
-            <p className="mt-8 text-[11px] uppercase tracking-[0.1em] text-ink-mute">
-              <ConsoleHint text={tc(ui.contact.console)} />
-            </p>
+            {/* "Press ~ …" hint (ui.contact.console) comes back with the console interactive. */}
           </div>
 
           <ul className="list-none">
@@ -51,10 +30,10 @@ export function Contact() {
                 <span className="text-[11px] uppercase tracking-[0.15em] text-ink-mute">{tc(row.label)}</span>
                 {row.href ? (
                   <a href={row.href} {...(row.href.startsWith("http") ? { target: "_blank", rel: "noopener" } : {})}>
-                    {row.value}
+                    {tc(row.value)}
                   </a>
                 ) : (
-                  <span className="text-ink-dim">{row.valueLocalized ? tc(row.valueLocalized) : row.value}</span>
+                  <span className="text-ink-dim">{tc(row.value)}</span>
                 )}
               </li>
             ))}

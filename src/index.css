@@ -39,7 +39,6 @@
   /* typography */
   --font-display: "Tektur", system-ui, sans-serif;
   --font-mono: "JetBrains Mono", "Courier New", monospace;
-  --font-pixel: "VT323", monospace;
 }
 
 /* ============================================================================
@@ -207,6 +206,13 @@
     black calc(100% - var(--bg-fade)),
     transparent 100%
   );
+}
+/* Touch / narrow screens: iOS ignores `fixed` anyway and Android repaints every
+   section on scroll — let each section carry its own crop instead. */
+@media (hover: none), (max-width: 800px) {
+  .bg-pattern::before {
+    background-attachment: scroll;
+  }
 }
 
 /* CRT scanlines + corner vignette overlay */
@@ -403,7 +409,8 @@ body::after {
 }
 
 /* director's-note commentary — hidden until commentary mode is toggled (Konami,
-   a TODO interactive). The note text is rendered now so it's ready to reveal. */
+   a TODO interactive). The localized "Director's note ::" label is rendered by
+   ContractCard, not here, so it follows the language switch. */
 .commentary {
   display: none;
   margin: 1rem 0;
@@ -414,11 +421,6 @@ body::after {
   font-size: 11px;
   line-height: 1.6;
   color: var(--color-eva-purple-glow);
-}
-.commentary::before {
-  content: "DIRECTOR'S NOTE :: ";
-  color: var(--color-ink-mute);
-  font-weight: 500;
 }
 body.commentary-on .commentary {
   display: block;

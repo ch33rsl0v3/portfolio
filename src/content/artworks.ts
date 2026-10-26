@@ -7,7 +7,7 @@ export const artworks: Artwork[] = [
     kind: "image",
     href: "https://www.artstation.com/artwork/DLJmdO",
     image: "aw03.jpg",
-    title: { en: "Yoru, The War Devil", ru: "Yoru, The War Devil", es: "Yoru, The War Devil" },
+    title: "Yoru, The War Devil",
     caption: {
       en: "My first full pipeline work.",
       ru: "Моя первая работа по полному пайплайну.",
@@ -19,7 +19,7 @@ export const artworks: Artwork[] = [
     kind: "image",
     href: "https://www.artstation.com/artwork/5vzZ0O",
     image: "aw01.jpg",
-    title: { en: "Rough Work 01", ru: "Rough Work 01", es: "Rough Work 01" },
+    title: "Rough Work 01",
     caption: {
       en: "Japanese demon · 2023",
       ru: "Японский демон · 2023",
@@ -31,7 +31,7 @@ export const artworks: Artwork[] = [
     kind: "image",
     href: "https://www.artstation.com/artwork/obkwzm",
     image: "aw02.jpg",
-    title: { en: "Saint Goddess", ru: "Saint Goddess", es: "Saint Goddess" },
+    title: "Saint Goddess",
     caption: {
       en: "Forest nymph study",
       ru: "Этюд лесной нимфы",
@@ -43,7 +43,7 @@ export const artworks: Artwork[] = [
     kind: "image",
     href: "https://www.artstation.com/artwork/m8OnmE",
     image: "aw04.jpg",
-    title: { en: "Chun Li", ru: "Chun Li", es: "Chun Li" },
+    title: "Chun Li",
     caption: {
       en: "Yes",
       ru: "Да",
@@ -55,11 +55,7 @@ export const artworks: Artwork[] = [
     kind: "archive",
     href: "https://www.artstation.com/ch33rsl0v3",
     title: { en: "See full archive", ru: "Полный архив", es: "Ver archivo completo" },
-    caption: {
-      en: "artstation.com/ch33rsl0v3",
-      ru: "artstation.com/ch33rsl0v3",
-      es: "artstation.com/ch33rsl0v3",
-    },
+    caption: "artstation.com/ch33rsl0v3",
     placeholder: {
       en: "[ ⨯ ]\nmore on ArtStation\n↗",
       ru: "[ ⨯ ]\nбольше на ArtStation\n↗",
