@@ -124,9 +124,9 @@ export const contracts: Contract[] = [
         tag: "Roblox · 2026",
         url: "https://www.roblox.com/games/70654235200182/Baddie-Jumping",
         desc: {
-          en: "Shipped end-to-end as concept owner: core loop, UI, progression events, world expansion, reward systems, and a balanced economy, then ran live ops. 141K peak DAU, 4.8M Robux.",
-          ru: "Выпустил полностью как автор концепта: основной луп, UI, события прогрессии, расширение мира, системы наград и сбалансированная экономика — затем вёл live ops. Пик 141K DAU, 4.8M Robux.",
-          es: "Lo entregué de principio a fin como autor del concepto: loop principal, UI, eventos de progresión, expansión del mundo, sistemas de recompensas y una economía equilibrada, y luego llevé los live ops. Pico de 141K DAU, 4.8M Robux.",
+          en: "Shipped end-to-end as concept owner: core loop, UI, progression events, world expansion, reward systems, and a balanced economy, then ran live ops. 500K peak DAU, 12.2M Robux.",
+          ru: "Выпустил полностью как автор концепта: основной луп, UI, события прогрессии, расширение мира, системы наград и сбалансированная экономика — затем вёл live ops. Пик 500K DAU, 12.2M Robux.",
+          es: "Lo entregué de principio a fin como autor del concepto: loop principal, UI, eventos de progresión, expansión del mundo, sistemas de recompensas y una economía equilibrada, y luego llevé los live ops. Pico de 500K DAU, 12.2M Robux.",
         },
       },
       {
