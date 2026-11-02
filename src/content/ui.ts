@@ -6,6 +6,7 @@ import type { Localized, SectionHeading } from "./types"
 // ============================================================================
 
 export const nav = {
+  skills: { en: "Skills", ru: "Навыки", es: "Habilidades" },
   experience: { en: "Experience", ru: "Опыт", es: "Experiencia" },
   projects: { en: "Projects", ru: "Проекты", es: "Proyectos" },
   artworks: { en: "Artworks", ru: "Работы", es: "Arte" },
@@ -14,10 +15,11 @@ export const nav = {
 } satisfies Record<string, Localized>
 
 export const navLinks: { hash: string; label: Localized }[] = [
+  { hash: "#skills", label: nav.skills },
   { hash: "#experience", label: nav.experience },
   { hash: "#projects", label: nav.projects },
-  { hash: "#artworks", label: nav.artworks },
   { hash: "#about", label: nav.about },
+  { hash: "#artworks", label: nav.artworks },
   { hash: "#contact", label: nav.letter },
 ]
 
@@ -98,6 +100,10 @@ export const ui = {
 
 // Section headers (title + optional subtitle).
 export const sectionHeads = {
+  skills: {
+    title: { en: "Skills", ru: "Навыки", es: "Habilidades" },
+    subtitle: { en: "What I'm actually good at.", ru: "В чём я реально силён.", es: "En lo que de verdad soy bueno." },
+  },
   experience: {
     title: { en: "Experience · Contracts", ru: "Опыт · Контракты", es: "Experiencia · Contratos" },
     subtitle: { en: "Shipped, run live, measured.", ru: "Выпущено, в live ops, в цифрах.", es: "Lanzado, en vivo, medido." },
@@ -113,9 +119,9 @@ export const sectionHeads = {
   about: {
     title: { en: "About", ru: "Обо мне", es: "Sobre mí" },
     subtitle: {
-      en: "Beyond the numbers.",
-      ru: "Помимо цифр.",
-      es: "Más allá de los números.",
+      en: "Off the clock.",
+      ru: "В свободное время.",
+      es: "Fuera del trabajo.",
     },
   },
 } satisfies Record<string, SectionHeading>

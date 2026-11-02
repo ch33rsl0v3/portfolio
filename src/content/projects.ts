@@ -4,6 +4,34 @@ import { ui } from "./ui"
 // PERSONAL PROJECTS (#projects). Media stored as bare filenames.
 export const projects: Project[] = [
   {
+    id: "ranalytics",
+    title: "RAnalytics",
+    tag: { en: "Own tool · used daily", ru: "Свой инструмент · каждый день", es: "Herramienta propia · uso diario" },
+    ascii: [
+      "  DAU",
+      "   ▲                                  ╭──╮",
+      "   │                               ╭──╯  ╰╮",
+      "   │                            ╭──╯      ╰──╮",
+      "   │                         ╭──╯            ╰─",
+      "   │                      ╭──╯   ◆ take-off",
+      "   │   ads off ◆      ╭───╯",
+      "   │ ╭─────╮       ╭──╯",
+      "   │─╯     ╰───────╯",
+      "   └──────────────────────────────────────────▶ days",
+    ].join("\n"),
+    role: {
+      en: "Solo · Python, SQLite, web · 2026",
+      ru: "Соло · Python, SQLite, веб · 2026",
+      es: "Solo · Python, SQLite, web · 2026",
+    },
+    desc: {
+      en: "My own Roblox market scanner and analytics site. Tracks thousands of games every hour, groups them into mechanic families and gives every new launch a chance to take off, from rules I backtested on real launches. My studio runs its launches on it every day.",
+      ru: "Мой собственный сканер рынка Roblox и сайт с аналитикой. Каждый час следит за тысячами игр, раскладывает их по семействам механик и даёт каждому запуску шанс на взлёт — по правилам, которые я проверил на реальных запусках. Студия запускает игры по нему каждый день.",
+      es: "Mi propio escáner del mercado de Roblox y web de analítica. Sigue miles de juegos cada hora, los agrupa por familias de mecánicas y da a cada lanzamiento una probabilidad de despegar, con reglas que validé en lanzamientos reales. Mi estudio lanza con él cada día.",
+    },
+    actions: [],
+  },
+  {
     id: "msa",
     title: "MUSIC. STRINGS. ACTION!",
     cover: "prj01.jpg",

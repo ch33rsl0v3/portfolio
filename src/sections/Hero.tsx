@@ -20,6 +20,7 @@ export function Hero() {
 
         <p className="mb-12 max-w-[580px] font-mono text-base text-ink-dim">{rich(hero.role)}</p>
 
+        {/* first glance of a recruiter = the strongest numbers (user, 2026-11-02) */}
         <div className="grid grid-cols-4 gap-px border border-line-bright bg-line max-[800px]:grid-cols-2">
           {hero.stats.map((s, i) => (
             <div key={i} className="bg-bg-2 px-6 py-5">

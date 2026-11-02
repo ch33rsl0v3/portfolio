@@ -33,9 +33,10 @@ export const contracts: Contract[] = [
     ],
     metrics: [
       { label: { en: "Peak DAU", ru: "Пик DAU", es: "Pico de DAU" }, value: "1.2M" },
-      { label: { en: "Players", ru: "Игроков", es: "Jugadores" }, value: "30M+" },
-      { label: { en: "Robux earned", ru: "Заработано R$", es: "Robux generados" }, value: "9.9M" },
-      { label: { en: "Launches", ru: "Запусков", es: "Lanzamientos" }, value: "40+" },
+      { label: { en: "Players", ru: "Игроков", es: "Jugadores" }, value: "25M+" },
+      { label: { en: "Robux earned", ru: "Заработано R$", es: "Robux generados" }, value: "8M+" },
+      { label: { en: "Launches", ru: "Запусков", es: "Lanzamientos" }, value: "50+" },
+      { label: { en: "Team", ru: "Команда", es: "Equipo" }, value: "15+" },
       { label: { en: "Took off", ru: "Взлетели", es: "Despegaron" }, value: "7" },
     ],
     projects: [
@@ -53,9 +54,9 @@ export const contracts: Contract[] = [
         tag: "Roblox · 2026",
         url: "https://www.roblox.com/games/78544890108997",
         desc: {
-          en: "Sequel built on the same formula: 123K peak DAU, 2.3M players, 1.2M Robux; still carried by Home recommendations.",
-          ru: "Сиквел по той же формуле: пик 123K DAU, 2.3M игроков, 1.2M Robux; до сих пор держится на рекомендациях главной.",
-          es: "Secuela con la misma fórmula: pico de 123K DAU, 2.3M jugadores, 1.2M Robux; sigue impulsada por las recomendaciones de Home.",
+          en: "Sequel built on the same formula: 123K peak DAU, 3.3M visits, 325K Robux; still carried by Home recommendations.",
+          ru: "Сиквел по той же формуле: пик 123K DAU, 3.3M визитов, 325K Robux; до сих пор держится на рекомендациях главной.",
+          es: "Secuela con la misma fórmula: pico de 123K DAU, 3.3M visitas, 325K Robux; sigue impulsada por las recomendaciones de Home.",
         },
       },
       {
@@ -63,18 +64,18 @@ export const contracts: Contract[] = [
         tag: "Roblox · 2026",
         url: "https://www.roblox.com/games/117009372193021",
         desc: {
-          en: "Paid test, then ads off at the right moment — Home took over and grew DAU ~80× in 10 days: 97K peak DAU, 1.2M players, 800K Robux.",
-          ru: "Платный тест, затем реклама выключена в нужный момент — главная подхватила и за 10 дней подняла DAU примерно в 80 раз: пик 97K DAU, 1.2M игроков, 800K Robux.",
-          es: "Prueba pagada y luego anuncios apagados en el momento justo — Home tomó el relevo y multiplicó el DAU ~80× en 10 días: pico de 97K DAU, 1.2M jugadores, 800K Robux.",
+          en: "Paid test, then ads off at the right moment — Home took over and grew DAU ~80× in 10 days: 97K peak DAU, 1.6M visits, 600K+ Robux.",
+          ru: "Платный тест, затем реклама выключена в нужный момент — главная подхватила и за 10 дней подняла DAU примерно в 80 раз: пик 97K DAU, 1.6M визитов, 600K+ Robux.",
+          es: "Prueba pagada y luego anuncios apagados en el momento justo — Home tomó el relevo y multiplicó el DAU ~80× en 10 días: pico de 97K DAU, 1.6M visitas, más de 600K Robux.",
         },
       },
       {
         title: "[ Tap for Spidey!, Wings for Squishies, Logo For Anime Egg... ]",
         tag: "Roblox · 2026",
         desc: {
-          en: "...and 40+ more launches through the same pipeline; 7 of them took off (20K+ Home impressions a day).",
-          ru: "...и ещё 40+ запусков по тому же процессу; 7 из них взлетели (20K+ показов на главной в день).",
-          es: "...y más de 40 lanzamientos con el mismo proceso; 7 despegaron (más de 20K impresiones diarias en Home).",
+          en: "...and 45+ more launches through the same pipeline; 7 of them took off (20K+ Home impressions a day).",
+          ru: "...и ещё 45+ запусков по тому же процессу; 7 из них взлетели (20K+ показов на главной в день).",
+          es: "...y más de 45 lanzamientos con el mismo proceso; 7 despegaron (más de 20K impresiones diarias en Home).",
         },
       },
     ],
@@ -113,7 +114,7 @@ export const contracts: Contract[] = [
     metrics: [
       { label: { en: "Peak DAU", ru: "Пик DAU", es: "Pico de DAU" }, value: "1.6M" },
       { label: { en: "Players", ru: "Игроков", es: "Jugadores" }, value: "130M+" },
-      { label: { en: "Robux earned", ru: "Заработано R$", es: "Robux generados" }, value: "37M+" },
+      { label: { en: "Robux earned", ru: "Заработано R$", es: "Robux generados" }, value: "44M+" },
       { label: { en: "D1 retention", ru: "D1 ретеншн", es: "Retención D1" }, value: "+14%" },
       { label: { en: "Delivery cycle", ru: "Цикл выпуска", es: "Ciclo de entrega" }, value: "3w → 1w" },
       { label: { en: "Team led", ru: "Команда", es: "Equipo liderado" }, value: "9" },
@@ -124,9 +125,9 @@ export const contracts: Contract[] = [
         tag: "Roblox · 2026",
         url: "https://www.roblox.com/games/70654235200182/Baddie-Jumping",
         desc: {
-          en: "Shipped end-to-end as concept owner: core loop, UI, progression events, world expansion, reward systems, and a balanced economy, then ran live ops. 500K peak DAU, 12.2M Robux.",
-          ru: "Выпустил полностью как автор концепта: основной луп, UI, события прогрессии, расширение мира, системы наград и сбалансированная экономика — затем вёл live ops. Пик 500K DAU, 12.2M Robux.",
-          es: "Lo entregué de principio a fin como autor del concepto: loop principal, UI, eventos de progresión, expansión del mundo, sistemas de recompensas y una economía equilibrada, y luego llevé los live ops. Pico de 500K DAU, 12.2M Robux.",
+          en: "Shipped end-to-end as concept owner: core loop, UI, progression events, world expansion, reward systems, and a balanced economy, then ran live ops. 500K peak DAU, 21M+ visits, 12.2M Robux.",
+          ru: "Выпустил полностью как автор концепта: основной луп, UI, события прогрессии, расширение мира, системы наград и сбалансированная экономика — затем вёл live ops. Пик 500K DAU, 21M+ визитов, 12.2M Robux.",
+          es: "Lo entregué de principio a fin como autor del concepto: loop principal, UI, eventos de progresión, expansión del mundo, sistemas de recompensas y una economía equilibrada, y luego llevé los live ops. Pico de 500K DAU, más de 21M visitas, 12.2M Robux.",
         },
       },
       {
@@ -134,9 +135,9 @@ export const contracts: Contract[] = [
         tag: "Roblox · 2026",
         url: "https://www.roblox.com/games/115394135656997/1-Speed-Wings-Escape",
         desc: {
-          en: "Owned end-to-end from concept to launch; a designed live-ops event lifted DAU +20% and drove the title's highest-grossing week. 1.08M peak DAU, 38M+ players, 15.7M Robux.",
-          ru: "Вёл полностью от концепта до релиза; спроектированное live-ops событие подняло DAU на +20% и принесло самую кассовую неделю тайтла. Пик 1.08M DAU, 38M+ игроков, 15.7M Robux.",
-          es: "Lo dirigí de principio a fin desde el concepto hasta el lanzamiento; un evento de live ops diseñado elevó el DAU +20% e impulsó la semana de mayores ingresos del título. Pico de 1.08M DAU, más de 38M jugadores, 15.7M Robux.",
+          en: "Owned end-to-end from concept to launch; a designed live-ops event lifted DAU +20% and drove the title's highest-grossing week. 1.08M peak DAU, 60M+ visits, 16M+ Robux.",
+          ru: "Вёл полностью от концепта до релиза; спроектированное live-ops событие подняло DAU на +20% и принесло самую кассовую неделю тайтла. Пик 1.08M DAU, 60M+ визитов, 16M+ Robux.",
+          es: "Lo dirigí de principio a fin desde el concepto hasta el lanzamiento; un evento de live ops diseñado elevó el DAU +20% e impulsó la semana de mayores ingresos del título. Pico de 1.08M DAU, más de 60M visitas, más de 16M Robux.",
         },
       },
       {
@@ -144,9 +145,9 @@ export const contracts: Contract[] = [
         tag: "Roblox · 2026",
         url: "https://www.roblox.com/games/84332574190497/1-Wings-for-Brainrots",
         desc: {
-          en: "Led production from concept through soft launch and live ops on a rebuilt codebase. 1.6M peak DAU, 91M+ players, 16.8M Robux; D1 ~20% at peak — top-10% of live games.",
-          ru: "Вёл продакшн от концепта до софт-лонча и live ops на перестроенной кодовой базе. Пик 1.6M DAU, 91M+ игроков, 16.8M Robux; D1 ~20% на пике — топ-10% живых игр.",
-          es: "Lideré la producción desde el concepto hasta el soft launch y live ops sobre una base de código reconstruida. Pico de 1.6M DAU, más de 91M jugadores, 16.8M Robux; D1 ~20% en el pico — top 10% de los juegos en vivo.",
+          en: "Led production from concept through soft launch and live ops on a rebuilt codebase. 1.6M peak DAU, 137M+ visits, 16M+ Robux; D1 ~20% at peak.",
+          ru: "Вёл продакшн от концепта до софт-лонча и live ops на перестроенной кодовой базе. Пик 1.6M DAU, 137M+ визитов, 16M+ Robux; D1 ~20% на пике.",
+          es: "Lideré la producción desde el concepto hasta el soft launch y live ops sobre una base de código reconstruida. Pico de 1.6M DAU, más de 137M visitas, más de 16M Robux; D1 ~20% en el pico.",
         },
       },
       {

@@ -126,6 +126,19 @@ export interface Achievement {
   desc: Localized
 }
 
+// ---- Skills ----------------------------------------------------------------
+export interface SkillBlock {
+  code: string // literal tag, e.g. "design"
+  title: Localized
+  desc: Localized // rich
+}
+
+export interface SkillsContent {
+  blocks: SkillBlock[]
+  toolsHeading: Localized
+  tools: { name: string; level: string }[] // level = stars, literal
+}
+
 // ---- About -----------------------------------------------------------------
 export interface SkillRow {
   name: string // literal
